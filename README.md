@@ -34,3 +34,13 @@ Day 1:
 - Git initialization
 - CLI implementation using argparse
 - Income, expense, and category arguments
+
+Day 2:
+
+- OOP fundamentals
+- Domain modeling
+- Transaction class
+- category class
+- Validation
+- Docstrings
+- Assertions/testing
