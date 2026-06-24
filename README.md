@@ -28,7 +28,7 @@ A command-line Finance Tracker application built using Python.
   * **lt**
 * Assertion-based testing
 
-### Day 3 - Advanced Functions (Part 1)
+### Day 3 - Advanced Functions 
 
 * Custom decorators
 
@@ -38,6 +38,12 @@ A command-line Finance Tracker application built using Python.
 * Performance benchmarking using timer decorator
 * Decorator testing
 * Execution time measurement
+*Generators
+*itertools
+*Functools
+*lru_chace()
+*Typehint PEP484
+*Mypy
 
 ## Project Structure
 
