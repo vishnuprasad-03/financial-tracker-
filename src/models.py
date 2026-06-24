@@ -6,6 +6,7 @@ Contains:
 - Category
 """
 
+from src.decorators import validate_amount
 
 class Category:
     """
@@ -143,3 +144,13 @@ class Transaction:
             <
             other.amount
         )
+    @validate_amount
+    def update_amount(
+        self,
+        amount: float
+    ):
+        """
+        Update transaction amount.
+        """
+
+        self.amount = amount
