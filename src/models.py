@@ -8,6 +8,12 @@ Contains:
 
 from src.decorators import validate_amount
 
+from src.exceptions import (
+    InvalidAmountError,
+    InvalidCategoryError,
+    InvalidTransactionTypeError
+)
+
 class Category:
     """
     Represents a transaction category.
@@ -32,9 +38,9 @@ class Category:
             )
 
         if not name.strip():
-            raise ValueError(
-                "Category name cannot be empty."
-            )
+           raise InvalidCategoryError(
+    "Category name cannot be empty."
+   )
 
         self.name = name.strip()
 
@@ -82,15 +88,15 @@ class Transaction:
         """
 
         if amount <= 0:
-            raise ValueError(
+            raise InvalidAmountError (
                 "Amount must be greater than zero."
-            )
+    )
 
         if not isinstance(
             category,
             Category
         ):
-            raise TypeError(
+            raise InvalidCategoryError(
                 "category must be Category object."
             )
 
@@ -98,9 +104,9 @@ class Transaction:
             transaction_type
             not in self.VALID_TYPES
         ):
-            raise ValueError(
-                "transaction_type must be income or expense."
-            )
+            raise InvalidTransactionTypeError(
+    "Transaction type must be 'income' or 'expense'."
+)
 
         self.amount = amount
         self.category = category

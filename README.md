@@ -77,33 +77,7 @@ finance-tracker/
 
 └── .gitignore
 
-## Technologies Used
 
-* Python
-* Git
-* GitHub
-* argparse
-* Object-Oriented Programming
-* Decorators
 
-## Current Status
 
-In Progress
-
-Completed:
-
-* CLI Development
-* OOP Domain Modeling
-* Validation
-* Testing
-* Decorators
-
-Upcoming:
-
-* Generators & itertools
-* functools
-* Type Hints
-* mypy
-* JSON Storage
-* SQLite Integration
 
