@@ -38,44 +38,37 @@ A command-line Finance Tracker application built using Python.
 * Performance benchmarking using timer decorator
 * Decorator testing
 * Execution time measurement
-*Generators
-*itertools
-*Functools
-*lru_chace()
-*Typehint PEP484
-*Mypy
+* Generators
+* itertools
+* Functools
+* lru_chace()
+* Typehint PEP484
+* Mypy
 
-## Project Structure
 
-finance-tracker/
+### Day 4
 
-├── data/
+* Advanced Exception Handling
+* Built a custom TransactionError hierarchy
+* Created custom exceptions:
+  * InvalidAmountError
+  * InvalidCategoryError
+  * InvalidTransactionTypeError
+* Replaced generic exceptions with custom exceptions
+* Implemented structured logging using Python's logging module
+* Configured logging using logging.yaml
+* Created centralized logger configuration (logger_config.py)
+* Logged application errors to app.log
+* Tested custom exception handling and logging successfully
 
-├── src/
+### Day 5
 
-│   ├── **init**.py
-
-│   ├── models.py
-
-│   ├── decorators.py
-
-│   ├── tracker.py
-
-│   ├── storage.py
-
-│   ├── test_models.py
-
-│   ├── test_decorators.py
-
-│   └── test_timer.py
-
-├── main.py
-
-├── requirements.txt
-
-├── README.md
-
-└── .gitignore
+* CSV File Handling
+* csv.DictReader
+* JSON Export
+* pathlib.Path
+* Bulk Transaction Import
+* Malformed Row Handling
 
 
 

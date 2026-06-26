@@ -1,0 +1,5 @@
+2026-06-25 13:14:10,890 - ERROR - Amount must be greater than zero.
+2026-06-26 14:21:20,738 - ERROR - Malformed row skipped: {'amount': 'abc', 'category': 'Shopping', 'transaction_type': 'expense'} | could not convert string to float: 'abc'
+2026-06-26 14:21:20,738 - ERROR - Malformed row skipped: {'amount': '700', 'category': '', 'transaction_type': 'expense'} | Category name cannot be empty.
+2026-06-26 14:21:20,738 - ERROR - Malformed row skipped: {'amount': '-100', 'category': 'Food', 'transaction_type': 'expense'} | Amount must be greater than zero.
+2026-06-26 14:21:20,738 - ERROR - Malformed row skipped: {'amount': '300', 'category': 'Rent', 'transaction_type': 'test'} | Transaction type must be 'income' or 'expense'.

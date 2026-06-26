@@ -1,0 +1,22 @@
+[
+    {
+        "amount": 1000.0,
+        "category": "Salary",
+        "transaction_type": "income"
+    },
+    {
+        "amount": 250.0,
+        "category": "Food",
+        "transaction_type": "expense"
+    },
+    {
+        "amount": 500.0,
+        "category": "Travel",
+        "transaction_type": "expense"
+    },
+    {
+        "amount": 800.0,
+        "category": "Investment",
+        "transaction_type": "income"
+    }
+]

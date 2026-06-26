@@ -1,0 +1,9 @@
+amount,category,transaction_type
+1000,Salary,income
+250,Food,expense
+500,Travel,expense
+abc,Shopping,expense
+700,,expense
+-100,Food,expense
+300,Rent,test
+800,Investment,income
