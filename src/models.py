@@ -88,7 +88,7 @@ class Transaction:
         """
 
         if amount <= 0:
-            raise InvalidAmountError (
+            raise InvalidAmountError(
                 "Amount must be greater than zero."
     )
 

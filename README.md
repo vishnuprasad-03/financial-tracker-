@@ -69,8 +69,11 @@ A command-line Finance Tracker application built using Python.
 * pathlib.Path
 * Bulk Transaction Import
 * Malformed Row Handling
+ 
+### Day 6
 
-
-
-
-
+* Unit Testing with pytest
+* Created 19 automated unit tests
+* Tested models.py and io_manager.py
+* Generated HTML coverage report
+* Achieved 100% code coverage
