@@ -77,3 +77,28 @@ A command-line Finance Tracker application built using Python.
 * Tested models.py and io_manager.py
 * Generated HTML coverage report
 * Achieved 100% code coverage
+
+### Day 7
+
+* SQLAlchemy ORM
+* SQLite Database Integration
+* Created centralized database configuration (database.py)
+* Created TransactionDB ORM model
+* Created SQLite database (finance.db)
+* Migrated transaction data from CSV to SQLite
+* Verified database row count matches imported transactions
+* Configured Alembic for database version control
+* Generated and applied the initial Alembic migration
+
+### Day 8
+
+* SQLAlchemy Query API
+* Report Generation
+* Database Filtering using filter()
+* Category-wise Aggregation using group_by()
+* Aggregate calculations using func.sum()
+* Sorted results using order_by()
+* Retrieved top categories using limit()
+* Implemented category_summary() in reports.py
+* created test_reports.py for report validation
+* Generated monthly spending summary (Top 3 spending categories)
