@@ -29,3 +29,9 @@ class InvalidTransactionTypeError(TransactionError):
     Raised when the transaction type is invalid.
     """
     pass
+
+class BudgetExceededError(TransactionError):
+    """
+    Raised when a category exceeds its budget.
+    """
+    pass

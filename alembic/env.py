@@ -5,7 +5,7 @@ from sqlalchemy import pool
 
 from alembic import context
 from src.database import Base
-from src.db_models import TransactionDB
+from src.db_models import TransactionDB, BudgetDB
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

@@ -102,3 +102,17 @@ A command-line Finance Tracker application built using Python.
 * Implemented category_summary() in reports.py
 * created test_reports.py for report validation
 * Generated monthly spending summary (Top 3 spending categories)
+
+#### Day 9
+
+* Budget Feature
+* Created `BudgetExceededError` for budget validation
+* Implemented `check_budget()` in `budget.py`
+* Compared category-wise spending against monthly budget limits
+* Raised custom exception when a category exceeded its budget
+* Displayed over-budget alerts in the terminal
+* Created `BudgetDB` SQLAlchemy model
+* Added `budgets` table to the database
+* Regenerated Alembic initial migration to include both `transactions` and `budgets` tables
+* Applied database migrations using Alembic
+* Created `test_budget.py` to validate budget checking

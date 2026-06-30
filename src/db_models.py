@@ -34,3 +34,27 @@ class TransactionDB(Base):
         String,
         nullable=False
     )
+
+class BudgetDB(Base):
+    """
+    Database model for monthly budgets.
+    """
+
+    __tablename__ = "budgets"
+
+    id = Column(
+        Integer,
+        primary_key=True,
+        autoincrement=True
+    )
+
+    category = Column(
+        String,
+        unique=True,
+        nullable=False
+    )
+
+    monthly_limit = Column(
+        Float,
+        nullable=False
+    )
