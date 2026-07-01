@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>All Transactions</h1>
+
+<table>
+
+    <thead>
+
+        <tr>
+
+            <th>ID</th>
+            <th>Amount</th>
+            <th>Category</th>
+            <th>Transaction Type</th>
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+    {% for transaction in transactions %}
+
+        <tr>
+
+            <td>{{ transaction.id }}</td>
+
+            <td>
+                ₹{{ "%.2f"|format(transaction.amount) }}
+            </td>
+
+            <td>
+                {{ transaction.category }}
+            </td>
+
+            <td>
+
+                {% if transaction.transaction_type == "income" %}
+
+                    <span class="income">
+                        Income
+                    </span>
+
+                {% else %}
+
+                    <span class="expense">
+                        Expense
+                    </span>
+
+                {% endif %}
+
+            </td>
+
+        </tr>
+
+    {% endfor %}
+
+    </tbody>
+
+</table>
+
+{% endblock %}

@@ -1,6 +1,6 @@
 # Finance Tracker
 
-A command-line Finance Tracker application built using Python.
+A Finance Tracker application built using Python that started as a command-line application and has evolved into a Flask web application. The project includes transaction management, budget monitoring, reporting, SQLite database integration, Alembic migrations, and automated testing using pytest.
 
 ## Features Implemented
 
@@ -22,7 +22,6 @@ A command-line Finance Tracker application built using Python.
 * Type checking
 * Docstrings
 * Dunder methods:
-
   * **str**
   * **eq**
   * **lt**
@@ -116,3 +115,19 @@ A command-line Finance Tracker application built using Python.
 * Regenerated Alembic initial migration to include both `transactions` and `budgets` tables
 * Applied database migrations using Alembic
 * Created `test_budget.py` to validate budget checking
+
+### Day 10
+
+* Flask Web Application Setup
+* Implemented Flask Application Factory (`create_app()`)
+* Created centralized application configuration (`config.py`)
+* Integrated Flask with SQLite database
+* Created `transactions` Blueprint
+* Implemented `/transactions` route
+* Connected Flask to SQLAlchemy for database access
+* Retrieved transaction data from SQLite using SQLAlchemy ORM
+* Created Jinja2 templates (`base.html` and `transactions.html`)
+* Implemented template inheritance using `base.html`
+* Rendered dynamic transaction data in an HTML table
+* Enhanced the UI with responsive table styling, hover effects, and color-coded transaction types
+* Successfully displayed all transactions from the database in the browser
