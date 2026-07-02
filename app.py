@@ -6,6 +6,7 @@ from flask import Flask
 
 from config import Config
 from blueprints.transactions import transactions_bp
+from blueprints.api import api_bp
 
 
 def create_app():
@@ -22,6 +23,7 @@ def create_app():
         return "Finance Tracker is Running 🚀"
     
     app.register_blueprint(transactions_bp)
+    app.register_blueprint(api_bp)
 
     return app
 
