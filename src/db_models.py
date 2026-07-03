@@ -5,6 +5,8 @@ Database models for Finance Tracker.
 from sqlalchemy import Column, Integer, Float, String
 
 from src.database import Base
+from flask_login import UserMixin
+from sqlalchemy import Column, Integer, String, Float
 
 
 class TransactionDB(Base):
@@ -56,5 +58,29 @@ class BudgetDB(Base):
 
     monthly_limit = Column(
         Float,
+        nullable=False
+    )
+
+class UserDB(Base, UserMixin):
+    """
+    Database model for users.
+    """
+
+    __tablename__ = "users"
+
+    id = Column(
+        Integer,
+        primary_key=True,
+        autoincrement=True
+    )
+
+    username = Column(
+        String,
+        unique=True,
+        nullable=False
+    )
+
+    password_hash = Column(
+        String,
         nullable=False
     )

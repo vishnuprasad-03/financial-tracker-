@@ -6,6 +6,7 @@ from flask import Blueprint, render_template
 
 from src.database import SessionLocal
 from src.db_models import TransactionDB
+from flask_login import login_required
 
 transactions_bp = Blueprint(
     "transactions",
@@ -14,6 +15,7 @@ transactions_bp = Blueprint(
 
 
 @transactions_bp.route("/transactions")
+@login_required
 def transactions():
 
     session = SessionLocal()
