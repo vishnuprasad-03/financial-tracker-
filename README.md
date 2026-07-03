@@ -131,3 +131,35 @@ A Finance Tracker application built using Python that started as a command-line 
 * Rendered dynamic transaction data in an HTML table
 * Enhanced the UI with responsive table styling, hover effects, and color-coded transaction types
 * Successfully displayed all transactions from the database in the browser
+
+
+### Day 11
+
+* REST API Design
+* Implemented RESTful API endpoints
+* GET /api/transactions
+* POST /api/transactions
+* DELETE /api/transactions/<id>
+* JSON responses using Flask jsonify
+* HTTP Status Codes
+  * 200 OK
+  * 201 Created
+  * 400 Bad Request
+  * 404 Not Found
+* API testing using Postman
+* Error handling for invalid requests
+
+### Day 12
+
+* User Authentication using Flask-Login
+* UserDB model implementation
+* Password hashing using Werkzeug
+* User Registration
+* User Login
+* User Logout
+* Session Management
+* Protected Routes using @login_required
+* Redirect unauthenticated users to /login
+* Remember-me cookie support
+* Alembic migration for Users table
+* Login and Register UI using Jinja2 templates
