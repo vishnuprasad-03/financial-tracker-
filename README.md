@@ -163,3 +163,26 @@ A Finance Tracker application built using Python that started as a command-line 
 * Remember-me cookie support
 * Alembic migration for Users table
 * Login and Register UI using Jinja2 templates
+
+### Day 13
+
+* HTML Forms (CRUD UI)
+* Integrated Flask-WTF for form handling
+* Created TransactionForm using WTForms
+* Implemented form validation
+  * Amount must be greater than zero
+  * Category cannot be empty
+  * Date is required
+* Added CSRF protection using Flask-WTF
+* Displayed validation error messages
+* Implemented flash messages for successful transaction creation
+* Redirected users after successful form submission (Post/Redirect/Get pattern)
+* Designed responsive transaction form using HTML and CSS
+* Added dashboard cards for:
+  * Total Income
+  * Total Expense
+  * Balance
+  * Total Transactions
+* Styled the Finance Tracker dashboard with a clean, modern UI
+* Added "View Transaction History" button with show/hide functionality
+* Improved overall user experience with responsive layout and external CSS

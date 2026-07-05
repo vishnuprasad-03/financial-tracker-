@@ -7,6 +7,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+
 <title>Finance Tracker Dashboard</title>
 
 <style>
@@ -243,54 +244,167 @@ background:#dc2626;
 </style>
 
 </head>
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}">
 
 <body>
 
-<header>
+<div class="navbar">
 
-<h1>💰 Finance Tracker</h1>
+    <div class="logo">
+        💰 Finance Tracker
+    </div>
 
-<a href="/logout" class="logout">Logout</a>
+    <div class="nav-buttons">
 
-</header>
+        <button id="historyBtn" class="history-btn">
+            📜 View Transaction History
+        </button>
+
+        <a href="{{ url_for('auth.logout') }}" class="logout">
+            Logout
+        </a>
+
+    </div>
+
+</div>
 
 <div class="container">
 
 <div class="cards">
 
-<div class="card">
+    <div class="card">
 
-<h3>Total Income</h3>
+        <h3>Total Income</h3>
 
-<p>₹25,000</p>
+        <p>₹{{ total_income }}</p>
+
+    </div>
+
+    <div class="card">
+
+        <h3>Total Expense</h3>
+
+        <p>₹{{ total_expense }}</p>
+
+    </div>
+
+    <div class="card">
+
+        <h3>Balance</h3>
+
+        <p>₹{{ balance }}</p>
+
+    </div>
+
+    <div class="card">
+
+        <h3>Transactions</h3>
+
+        <p>{{ transactions|length }}</p>
+
+    </div>
 
 </div>
 
-<div class="card">
+<div class="form-card">
 
-<h3>Total Expense</h3>
+<h2>Add Transaction</h2>
+{% with messages = get_flashed_messages(with_categories=true) %}
 
-<p>₹12,450</p>
+{% if messages %}
 
-</div>
+    {% for category, message in messages %}
 
-<div class="card">
+        <div class="alert">
 
-<h3>Balance</h3>
+            {{ message }}
 
-<p>₹12,550</p>
+        </div>
 
-</div>
+    {% endfor %}
 
-<div class="card">
+{% endif %}
 
-<h3>Transactions</h3>
+{% endwith %}
 
-<p>{{ transactions|length }}</p>
+<form method="POST" novalidate>
 
-</div>
+    {{ form.hidden_tag() }}
 
-</div>
+    <p>
+
+    {{ form.amount.label }}
+
+    {{ form.amount() }}
+
+    {% for error in form.amount.errors %}
+
+        <span class="error">
+
+            {{ error }}
+
+        </span>
+
+    {% endfor %}
+
+    </p>
+
+    <p>
+
+    {{ form.category.label }}
+
+    {{ form.category() }}
+
+    {% for error in form.category.errors %}
+
+    <span class="error">
+
+    {{ error }}
+
+    </span>
+
+    {% endfor %}
+
+    </p>
+
+    <p>
+
+        {{ form.transaction_type.label }}
+
+        {{ form.transaction_type() }}
+
+    </p>
+
+    <p>
+
+{{ form.date.label }}
+
+{{ form.date() }}
+
+{% for error in form.date.errors %}
+
+<span class="error">
+
+{{ error }}
+
+</span>
+
+{% endfor %}
+
+</p>
+
+    <p>
+
+        {{ form.submit() }}
+
+    </p>
+
+</form>
+
+<div id="history" style="display:none;">
+
+<h2>Transaction History</h2>
 
 <table>
 
@@ -340,15 +454,38 @@ background:#dc2626;
 
 </table>
 
-<div class="footer-buttons">
-
-<a href="#" class="btn add">➕ Add Transaction</a>
-
-<a href="/logout" class="btn logout2">Logout</a>
-
 </div>
 
+
+
 </div>
+<script>
+
+const historyBtn = document.getElementById("historyBtn");
+
+const history = document.getElementById("history");
+
+historyBtn.addEventListener("click", function(){
+
+    if(history.style.display==="none"){
+
+        history.style.display="block";
+
+        historyBtn.innerHTML="🙈 Hide Transaction History";
+
+    }
+
+    else{
+
+        history.style.display="none";
+
+        historyBtn.innerHTML="📜 View Transaction History";
+
+    }
+
+});
+
+</script>
 
 </body>
 
