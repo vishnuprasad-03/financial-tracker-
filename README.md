@@ -186,3 +186,17 @@ A Finance Tracker application built using Python that started as a command-line 
 * Styled the Finance Tracker dashboard with a clean, modern UI
 * Added "View Transaction History" button with show/hide functionality
 * Improved overall user experience with responsive layout and external CSS
+
+### Day 14
+
+* External API Integration
+* Configured `requests.Session()` for efficient HTTP requests
+* Implemented automatic retry mechanism using `HTTPAdapter`
+* Integrated live Exchange Rate API
+* Mapped API response to application data
+* Implemented exchange rate caching using `functools.lru_cache`
+* Converted total expense from INR to USD using live exchange rates
+* Displayed USD equivalent on the Finance Tracker dashboard
+* Added Live Exchange Rate badge showing current INR → USD conversion rate
+* Enhanced dashboard with real-time currency conversion
+* Successfully fetched and displayed live exchange rate data

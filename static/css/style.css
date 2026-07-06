@@ -277,3 +277,22 @@ tr:hover{
     background:#f8fbff;
 
 }
+.rate-badge{
+
+    width:fit-content;
+
+    margin:20px auto;
+
+    padding:12px 20px;
+
+    background:#e0f2fe;
+
+    color:#0369a1;
+
+    border-radius:30px;
+
+    font-weight:bold;
+
+    box-shadow:0 3px 12px rgba(0,0,0,.08);
+
+}

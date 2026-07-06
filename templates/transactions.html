@@ -286,6 +286,11 @@ background:#dc2626;
         <h3>Total Expense</h3>
 
         <p>₹{{ total_expense }}</p>
+        <small>
+
+            ≈ ${{ "%.2f"|format(total_spend_usd) }}
+
+        </small>
 
     </div>
 
@@ -304,6 +309,15 @@ background:#dc2626;
         <p>{{ transactions|length }}</p>
 
     </div>
+
+</div>
+<div class="rate-badge">
+
+🌍 Live Exchange Rate
+
+1 INR =
+
+${{ "%.4f"|format(usd_rate) }}
 
 </div>
 

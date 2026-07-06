@@ -16,6 +16,7 @@ from flask_login import login_required
 from src.database import SessionLocal
 from src.db_models import TransactionDB
 from src.forms import TransactionForm
+from src.exchange_service import get_usd_rate
 
 transactions_bp = Blueprint(
     "transactions",
@@ -80,6 +81,8 @@ def transactions():
     )
 
     balance = total_income - total_expense
+    usd_rate = get_usd_rate()
+    total_spend_usd = total_expense * usd_rate
 
     session.close()
 
@@ -89,6 +92,8 @@ def transactions():
     transactions=all_transactions,
     total_income=total_income,
     total_expense=total_expense,
-    balance=balance
+    balance=balance,
+    usd_rate=usd_rate,
+    total_spend_usd=total_spend_usd
 
 )
