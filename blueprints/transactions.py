@@ -12,11 +12,14 @@ from flask import (
 )
 
 from flask_login import login_required
-
+from flask_wtf import form
+from datetime import date
+from dateutil.relativedelta import relativedelta
 from src.database import SessionLocal
 from src.db_models import TransactionDB
 from src.forms import TransactionForm
 from src.exchange_service import get_usd_rate
+from sqlalchemy import func
 
 transactions_bp = Blueprint(
     "transactions",
@@ -43,11 +46,12 @@ def transactions():
 
             amount=form.amount.data,
 
-            category=form.category.data,
+            category=form.category.data.strip().title(),
 
-            transaction_type=form.transaction_type.data
-
-        )
+            transaction_type=form.transaction_type.data,
+            
+            date=form.date.data
+       )
 
         session.add(transaction)
 
@@ -81,19 +85,88 @@ def transactions():
     )
 
     balance = total_income - total_expense
-    usd_rate = get_usd_rate()
-    total_spend_usd = total_expense * usd_rate
+    category_spending = (
+    session.query(
+        TransactionDB.category,
+        func.sum(TransactionDB.amount).label("total")
+    )
+    .filter(TransactionDB.transaction_type == "expense")
+    .group_by(TransactionDB.category)
+    .order_by(func.sum(TransactionDB.amount).desc())
+    .all()
+    )
+
+# Show only the top 6 categories
+    top_categories = category_spending[:6]
+
+    # Combine remaining categories into "Other"
+    other_total = sum(
+    amount for category, amount in category_spending[6:]
+    )
+
+    category_labels = [
+    category for category, amount in top_categories
+    ]   
+
+    category_values = [
+    amount for category, amount in top_categories
+    ]
+
+    if other_total > 0:
+        category_labels.append("Other")
+        category_values.append(other_total)
+
+            # Monthly expense trend for the last 6 months
+    today = date.today()
+
+    monthly_labels = []
+    monthly_values = []
+
+    for months_ago in range(5, -1, -1):
+
+        target_month = today - relativedelta(months=months_ago)
+
+        month_start = target_month.replace(day=1)
+
+        next_month = month_start + relativedelta(months=1)
+
+        monthly_total = (
+            session.query(
+                func.sum(TransactionDB.amount)
+            )
+            .filter(
+                TransactionDB.transaction_type == "expense",
+                TransactionDB.date >= month_start,
+                TransactionDB.date < next_month
+            )
+            .scalar()
+        ) or 0
+
+        monthly_labels.append(
+            target_month.strftime("%b %Y")
+        )
+
+        monthly_values.append(
+            float(monthly_total)
+        )
+        usd_rate = get_usd_rate()
+        total_spend_usd = total_expense * usd_rate
 
     session.close()
 
     return render_template(
-    "transactions.html",
-    form=form,
-    transactions=all_transactions,
-    total_income=total_income,
-    total_expense=total_expense,
-    balance=balance,
-    usd_rate=usd_rate,
-    total_spend_usd=total_spend_usd
+    
+        "transactions.html",
+        form=form,
+        category_labels=category_labels,
+        category_values=category_values,
+        monthly_labels=monthly_labels,
+        monthly_values=monthly_values,
+        transactions=all_transactions,
+        total_income=total_income,
+        total_expense=total_expense,
+        balance=balance,
+        usd_rate=usd_rate,
+        total_spend_usd=total_spend_usd
 
 )

@@ -243,6 +243,8 @@ background:#dc2626;
 
 </style>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 <link rel="stylesheet"
       href="{{ url_for('static', filename='css/style.css') }}">
@@ -318,6 +320,24 @@ background:#dc2626;
 1 INR =
 
 ${{ "%.4f"|format(usd_rate) }}
+
+<div class="charts-grid">
+
+    <div class="chart-container">
+        <h2>Spending by Category</h2>
+
+        <div class="chart-canvas-wrapper">
+            <canvas id="categoryChart"></canvas>
+        </div>
+    </div>
+
+    <div class="chart-container">
+        <h2>Monthly Spending Trend</h2>
+
+        <div class="chart-canvas-wrapper">
+            <canvas id="monthlyChart"></canvas>
+        </div>
+    </div>
 
 </div>
 
@@ -499,6 +519,93 @@ historyBtn.addEventListener("click", function(){
 
 });
 
+</script>
+<script>
+    const categoryLabels = {{ category_labels | tojson }};
+    const categoryValues = {{ category_values | tojson }};
+
+    const categoryContext = document
+        .getElementById("categoryChart")
+        .getContext("2d");
+
+    new Chart(categoryContext, {
+        type: "doughnut",
+
+        data: {
+            labels: categoryLabels,
+
+            datasets: [{
+                label: "Spending",
+                data: categoryValues
+            }]
+        },
+
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+
+            plugins: {
+                legend: {
+                    position: "bottom"
+                }
+            }
+        }
+    });
+    const monthlyLabels = {{ monthly_labels | tojson | safe }};
+const monthlyValues = {{ monthly_values | tojson | safe }};
+
+const monthlyCanvas = document.getElementById("monthlyChart");
+
+if (monthlyCanvas) {
+
+    const monthlyContext = monthlyCanvas.getContext("2d");
+
+    new Chart(monthlyContext, {
+        type: "bar",
+
+        data: {
+            labels: monthlyLabels,
+
+            datasets: [{
+                label: "Monthly Expenses (₹)",
+                data: monthlyValues,
+                borderWidth: 1,
+                borderRadius: 8
+            }]
+        },
+
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+
+            scales: {
+                y: {
+                    beginAtZero: true,
+
+                    ticks: {
+                        callback: function(value) {
+                            return "₹" + value;
+                        }
+                    }
+                }
+            },
+
+            plugins: {
+                legend: {
+                    display: false
+                },
+
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return "₹" + context.raw.toFixed(2);
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
 </script>
 
 </body>

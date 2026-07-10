@@ -6,7 +6,8 @@ from sqlalchemy import Column, Integer, Float, String
 
 from src.database import Base
 from flask_login import UserMixin
-from sqlalchemy import Column, Integer, String, Float
+from sqlalchemy import Column, Integer, String, Float, Date
+from datetime import date
 
 
 class TransactionDB(Base):
@@ -35,6 +36,11 @@ class TransactionDB(Base):
     transaction_type = Column(
         String,
         nullable=False
+    )
+    date = Column(
+    Date,
+    nullable=False,
+    default=date.today
     )
 
 class BudgetDB(Base):

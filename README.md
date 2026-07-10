@@ -200,3 +200,19 @@ A Finance Tracker application built using Python that started as a command-line 
 * Added Live Exchange Rate badge showing current INR → USD conversion rate
 * Enhanced dashboard with real-time currency conversion
 * Successfully fetched and displayed live exchange rate data
+
+### Day 15
+
+* Charts and Data Visualization using Chart.js
+* Integrated Chart.js via CDN
+* Created Spending by Category doughnut chart
+* Retrieved real expense data from SQLite using SQLAlchemy
+* Grouped expense transactions by category using `func.sum()` and `group_by()`
+* Displayed Top 6 spending categories and combined remaining categories as Other
+* Created Monthly Spending Trend bar chart for the last 6 months
+* Added `date` column to TransactionDB model
+* Created and applied Alembic migration for transaction date
+* Saved transaction date from WTForms to SQLite database
+* Passed Python data from Flask to JavaScript using Jinja2 `tojson`
+* Implemented responsive two-chart dashboard layout
+* Charts automatically update using real database transaction data
