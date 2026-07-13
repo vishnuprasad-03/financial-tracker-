@@ -1,0 +1,8 @@
+amount,category,transaction_type,date
+500,Food,expense,2026-07-10
+1200,Travel,expense,2026-07-11
+30000,Salary,income,2026-07-01
+800,Shopping,expense,2026-07-12
+250,Snacks,expense,2026-07-13
+5000,Rent,expense,2026-07-05
+750,Electricity,expense,2026-07-06

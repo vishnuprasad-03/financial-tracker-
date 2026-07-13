@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Import Transactions | Finance Tracker</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+</head>
+
+<body>
+
+    <div class="import-page">
+
+        <div class="import-card">
+
+            <h1>Import Transactions</h1>
+
+            <p class="import-description">
+                Upload a CSV file to preview your transactions
+                before importing them into the database.
+            </p>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+
+                {% if messages %}
+
+                    {% for category, message in messages %}
+
+                        <div class="alert {{ category }}">
+                            {{ message }}
+                        </div>
+
+                    {% endfor %}
+
+                {% endif %}
+
+            {% endwith %}
+
+            <form
+                method="POST"
+                action="{{ url_for('file_operations.import_transactions') }}"
+                enctype="multipart/form-data"
+                class="import-form"
+            >
+
+                <label for="file">
+                    Choose CSV File
+                </label>
+
+                <input
+                    type="file"
+                    id="file"
+                    name="file"
+                    accept=".csv"
+                    required
+                >
+
+                <button type="submit" class="import-button">
+                    Preview CSV
+                </button>
+
+            </form>
+
+            <div class="csv-format">
+
+                <h3>Expected CSV Format</h3>
+
+                <code>
+                    amount,category,transaction_type,date
+                </code>
+
+                <p>
+                    Example: 500,Food,expense,2026-07-13
+                </p>
+
+            </div>
+
+            <a
+                href="{{ url_for('transactions.transactions') }}"
+                class="back-link"
+            >
+                ← Back to Dashboard
+            </a>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

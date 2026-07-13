@@ -21,11 +21,15 @@ mypy==1.19.1
 mypy_extensions==1.1.0
 packaging==26.2
 pathspec==1.1.1
+pillow==11.3.0
 pluggy==1.6.0
 Pygments==2.20.0
 pytest==8.4.2
+python-dateutil==2.9.0.post0
 PyYAML==6.0.3
+reportlab==5.0.0
 requests==2.32.5
+six==1.17.0
 SQLAlchemy==2.0.51
 tomli==2.4.1
 typing_extensions==4.15.0

@@ -246,24 +246,102 @@ background:#dc2626;
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
+
 <link rel="stylesheet"
       href="{{ url_for('static', filename='css/style.css') }}">
 
 <body>
+<header class="dashboard-header">
 
-<div class="navbar">
+    <div class="brand">
 
-    <div class="logo">
-        💰 Finance Tracker
+    <div class="brand-icon">
+        ₹
     </div>
 
-    <div class="nav-buttons">
+    <div class="brand-text">
 
-        <button id="historyBtn" class="history-btn">
-            📜 View Transaction History
-        </button>
+        <h1>Finance Tracker</h1>
 
-        <a href="{{ url_for('auth.logout') }}" class="logout">
+        <p>
+            Track your income and expenses effortlessly.
+        </p>
+
+    </div>
+
+</div>
+
+    <div class="header-actions">
+
+    
+
+        <div class="menu-wrapper">
+
+    <!-- Hamburger Button -->
+    <button
+        type="button"
+        class="hamburger-btn"
+        id="hamburgerBtn"
+        aria-label="Open navigation menu"
+        aria-expanded="false"
+    >
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+
+    <!-- Dropdown Menu -->
+    <div class="dropdown-menu" id="dropdownMenu">
+
+        
+
+        <a
+            href="#add-transaction"
+            class="menu-item"
+        >
+            <span class="menu-icon">＋</span>
+            Add Transaction
+        </a>
+        <button
+    type="button"
+    class="menu-item"
+    id="viewTransactionsMenuBtn"
+>
+    📋 View Transactions
+</button>
+
+        <a
+            href="{{ url_for('file_operations.import_transactions') }}"
+            class="menu-item"
+        >
+            <span class="menu-icon">📤</span>
+            Import CSV
+        </a>
+
+        <a
+            href="{{ url_for('file_operations.export_transactions') }}"
+            class="menu-item"
+        >
+            <span class="menu-icon">📥</span>
+            Export CSV
+        </a>
+
+        <a
+            href="{{ url_for('file_operations.export_pdf') }}"
+            class="menu-item"
+        >
+            <span class="menu-icon">📄</span>
+            PDF Report
+        </a>
+
+        <div class="menu-divider"></div>
+
+        <a
+            href="{{ url_for('auth.logout') }}"
+            class="menu-item logout-menu-item"
+        >
+            <span class="menu-icon">↪</span>
             Logout
         </a>
 
@@ -271,46 +349,96 @@ background:#dc2626;
 
 </div>
 
-<div class="container">
-
-<div class="cards">
-
-    <div class="card">
-
-        <h3>Total Income</h3>
-
-        <p>₹{{ total_income }}</p>
-
     </div>
 
-    <div class="card">
+</header>
 
-        <h3>Total Expense</h3>
 
-        <p>₹{{ total_expense }}</p>
-        <small>
 
-            ≈ ${{ "%.2f"|format(total_spend_usd) }}
 
-        </small>
 
-    </div>
+<section class="summary-grid">
 
-    <div class="card">
+    <!-- Net Balance -->
+    <article class="summary-card balance-card">
 
-        <h3>Balance</h3>
+        <div class="summary-card-top">
+            <span class="summary-label">Net Balance</span>
+            <span class="summary-icon balance-icon">₹</span>
+        </div>
 
-        <p>₹{{ balance }}</p>
+        <div class="summary-value balance-value">
+            ₹{{ "%.2f"|format(balance) }}
+        </div>
 
-    </div>
+        <p class="summary-description">
+            {% if balance >= 0 %}
+                ↑ Positive balance
+            {% else %}
+                ↓ Negative balance
+            {% endif %}
+        </p>
 
-    <div class="card">
+    </article>
 
-        <h3>Transactions</h3>
 
-        <p>{{ transactions|length }}</p>
+    <!-- Total Income -->
+    <article class="summary-card income-card">
 
-    </div>
+        <div class="summary-card-top">
+            <span class="summary-label">Total Income</span>
+            <span class="summary-icon income-icon">↑</span>
+        </div>
+
+        <div class="summary-value income-value">
+            ₹{{ "%.2f"|format(total_income) }}
+        </div>
+
+        <p class="summary-description">
+            From all income transactions
+        </p>
+
+    </article>
+
+
+    <!-- Total Expense -->
+    <article class="summary-card expense-card">
+
+        <div class="summary-card-top">
+            <span class="summary-label">Total Expenses</span>
+            <span class="summary-icon expense-icon">↓</span>
+        </div>
+
+        <div class="summary-value expense-value">
+            ₹{{ "%.2f"|format(total_expense) }}
+        </div>
+
+        <p class="summary-description">
+            ≈ ${{ "%.2f"|format(total_spend_usd) }} USD
+        </p>
+
+    </article>
+
+
+    <!-- Transactions -->
+    <article class="summary-card transaction-card">
+
+        <div class="summary-card-top">
+            <span class="summary-label">Transactions</span>
+            <span class="summary-icon transaction-icon">◷</span>
+        </div>
+
+        <div class="summary-value transaction-value">
+            {{ transactions|length }}
+        </div>
+
+        <p class="summary-description">
+            Total recorded transactions
+        </p>
+
+    </article>
+
+</section>
 
 </div>
 <div class="rate-badge">
@@ -321,25 +449,127 @@ background:#dc2626;
 
 ${{ "%.4f"|format(usd_rate) }}
 
-<div class="charts-grid">
+</div>
+<section class="dashboard-charts-grid">
 
-    <div class="chart-container">
-        <h2>Spending by Category</h2>
+    <!-- Income vs Expense -->
+    <div class="income-expense-chart-card">
 
-        <div class="chart-canvas-wrapper">
-            <canvas id="categoryChart"></canvas>
+        <div class="chart-card-header">
+
+            <div class="chart-title-group">
+                <h2>Income vs Expense</h2>
+                <p>Last 6 months</p>
+            </div>
+
+            <div class="chart-legend">
+
+                <div class="legend-item">
+                    <span class="legend-dot income-dot"></span>
+                    <span>Income</span>
+                </div>
+
+                <div class="legend-item">
+                    <span class="legend-dot expense-dot"></span>
+                    <span>Expense</span>
+                </div>
+
+            </div>
+
         </div>
+
+        <div class="bar-chart-wrapper">
+            <canvas id="incomeExpenseChart"></canvas>
+        </div>
+
     </div>
 
-    <div class="chart-container">
-        <h2>Monthly Spending Trend</h2>
 
-        <div class="chart-canvas-wrapper">
-            <canvas id="monthlyChart"></canvas>
-        </div>
+    <!-- Spending by Category -->
+    <div class="category-chart-card">
+
+    <div class="category-card-header">
+
+        <h2>
+            Expense<br>
+            Distribution
+        </h2>
+
+        <p>
+            Breakdown of outbound<br>
+            payments
+        </p>
+
+    </div>
+
+
+   <div class="doughnut-container">
+
+    <canvas id="categoryChart"></canvas>
+
+    <div class="doughnut-center">
+
+        <span id="doughnutCenterLabel">
+            TOTAL
+        </span>
+
+        <strong id="doughnutCenterValue">
+            ₹{{ "{:,.2f}".format(total_expense) }}
+        </strong>
+
     </div>
 
 </div>
+
+
+    <div class="category-breakdown">
+
+    {% for category in category_labels %}
+
+        {% set value = category_values[loop.index0] %}
+
+        <div
+            class="category-breakdown-row"
+            data-index="{{ loop.index0 }}"
+        >
+
+            <div class="category-info">
+
+                <span
+                    class="category-color-dot"
+                    data-color-index="{{ loop.index0 }}"
+                ></span>
+
+                <span class="category-name">
+                    {{ category }}
+                </span>
+
+            </div>
+
+            <div class="category-amount-info">
+
+                <strong>
+                    ₹{{ "{:,.2f}".format(value) }}
+                </strong>
+
+                <span>
+                    {% if total_expense > 0 %}
+                        {{ ((value / total_expense) * 100) | round | int }}%
+                    {% else %}
+                        0%
+                    {% endif %}
+                </span>
+
+            </div>
+
+        </div>
+
+    {% endfor %}
+
+</div>
+
+</section>
+
 
 <div class="form-card">
 
@@ -494,101 +724,305 @@ ${{ "%.4f"|format(usd_rate) }}
 
 </div>
 <script>
+    const categoryLabels = {{ category_labels | tojson | safe }};
+    const categoryValues = {{ category_values | tojson | safe }};
+    const totalExpense = {{ total_expense | tojson | safe }};
 
-const historyBtn = document.getElementById("historyBtn");
+    const categoryColors = [
+        "#ef3340",
+        "#ff7a1a",
+        "#22b5e5",
+        "#9146e8",
+        "#22c55e"
+    ];
 
-const history = document.getElementById("history");
+    const categoryCanvas = document.getElementById("categoryChart");
 
-historyBtn.addEventListener("click", function(){
+    if (categoryCanvas) {
 
-    if(history.style.display==="none"){
+        const categoryContext = categoryCanvas.getContext("2d");
 
-        history.style.display="block";
+        const categoryChart = new Chart(categoryContext, {
+            type: "doughnut",
 
-        historyBtn.innerHTML="🙈 Hide Transaction History";
+            data: {
+                labels: categoryLabels,
 
-    }
+                datasets: [{
+                    label: "Spending",
+                    data: categoryValues,
 
-    else{
+                    backgroundColor: categoryLabels.map(
+                        (_, index) =>
+                            categoryColors[index % categoryColors.length]
+                    ),
 
-        history.style.display="none";
+                    borderWidth: 0,
+                    hoverOffset: 8
+                }]
+            },
 
-        historyBtn.innerHTML="📜 View Transaction History";
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
 
-    }
+                cutout: "70%",
 
-});
+                plugins: {
+                    legend: {
+                        display: false
+                    },
 
-</script>
-<script>
-    const categoryLabels = {{ category_labels | tojson }};
-    const categoryValues = {{ category_values | tojson }};
+                    tooltip: {
+                        enabled: false
+                    }
+                },
 
-    const categoryContext = document
-        .getElementById("categoryChart")
-        .getContext("2d");
+                // Hover over doughnut slice
+                onHover: function(event, elements) {
 
-    new Chart(categoryContext, {
-        type: "doughnut",
+                    if (elements.length > 0) {
 
-        data: {
-            labels: categoryLabels,
+                        const index = elements[0].index;
 
-            datasets: [{
-                label: "Spending",
-                data: categoryValues
-            }]
-        },
+                        showCategory(index);
 
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
+                    } else {
 
-            plugins: {
-                legend: {
-                    position: "bottom"
+                        showTotal();
+                    }
                 }
             }
+        });
+
+
+        // ==========================================
+        // SHOW CATEGORY ON HOVER
+        // ==========================================
+
+        function showCategory(index) {
+
+            const value = Number(categoryValues[index]);
+
+            const percentage = totalExpense > 0
+                ? Math.round(
+                    (value / totalExpense) * 100
+                )
+                : 0;
+
+            const centerLabel = document.getElementById(
+                "doughnutCenterLabel"
+            );
+
+            const centerValue = document.getElementById(
+                "doughnutCenterValue"
+            );
+
+            centerLabel.textContent =
+                categoryLabels[index].toUpperCase();
+
+            centerValue.textContent =
+                percentage + "%";
+
+
+            // Highlight hovered row
+            const rows = document.querySelectorAll(
+                ".category-breakdown-row"
+            );
+            const categoryBreakdown = document.querySelector(
+    ".category-breakdown"
+);
+
+categoryBreakdown.classList.add("has-active");
+            rows.forEach((row, rowIndex) => {
+
+                if (rowIndex === index) {
+                    row.classList.add("active");
+                } else {
+                    row.classList.remove("active");
+                }
+
+            });
+        }
+
+
+        // ==========================================
+        // RESTORE TOTAL
+        // ==========================================
+
+        function showTotal() {
+
+            const centerLabel = document.getElementById(
+                "doughnutCenterLabel"
+            );
+
+            const centerValue = document.getElementById(
+                "doughnutCenterValue"
+            );
+
+            centerLabel.textContent = "TOTAL";
+
+            centerValue.textContent =
+                "₹" + Number(totalExpense).toLocaleString(
+                    "en-IN",
+                    {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    }
+                );
+
+
+            // Remove row highlighting
+            const rows = document.querySelectorAll(
+                ".category-breakdown-row"
+            );
+
+            rows.forEach((row) => {
+                row.classList.remove("active");
+            });
+            const categoryBreakdown = document.querySelector(
+    ".category-breakdown"
+);
+
+categoryBreakdown.classList.remove("has-active");
+        }
+
+
+        // ==========================================
+        // HOVER OVER CATEGORY ROWS
+        // ==========================================
+
+        const categoryRows = document.querySelectorAll(
+            ".category-breakdown-row"
+        );
+
+        categoryRows.forEach((row) => {
+
+            const index = Number(
+                row.dataset.index
+            );
+
+            row.addEventListener("mouseenter", function() {
+                showCategory(index);
+            });
+
+            row.addEventListener("mouseleave", function() {
+                showTotal();
+            });
+
+        });
+
+
+        // ==========================================
+        // MATCH DOTS WITH CHART COLORS
+        // ==========================================
+
+        const categoryDots = document.querySelectorAll(
+            ".category-color-dot"
+        );
+
+        categoryDots.forEach((dot) => {
+
+            const index = Number(
+                dot.dataset.colorIndex
+            );
+
+            dot.style.backgroundColor =
+                categoryColors[index % categoryColors.length];
+        });
+
+
+        // Show total initially
+        showTotal();
+    }
+</script>
+<script>
+    const hamburgerBtn = document.getElementById("hamburgerBtn");
+    const dropdownMenu = document.getElementById("dropdownMenu");
+
+    hamburgerBtn.addEventListener("click", function(event) {
+        event.stopPropagation();
+
+        hamburgerBtn.classList.toggle("active");
+        dropdownMenu.classList.toggle("active");
+
+        const isOpen = dropdownMenu.classList.contains("active");
+
+        hamburgerBtn.setAttribute(
+            "aria-expanded",
+            isOpen
+        );
+    });
+
+
+    // Close menu when clicking outside
+    document.addEventListener("click", function(event) {
+
+        if (
+            !hamburgerBtn.contains(event.target) &&
+            !dropdownMenu.contains(event.target)
+        ) {
+            hamburgerBtn.classList.remove("active");
+            dropdownMenu.classList.remove("active");
+
+            hamburgerBtn.setAttribute(
+                "aria-expanded",
+                "false"
+            );
         }
     });
-    const monthlyLabels = {{ monthly_labels | tojson | safe }};
-const monthlyValues = {{ monthly_values | tojson | safe }};
 
-const monthlyCanvas = document.getElementById("monthlyChart");
 
-if (monthlyCanvas) {
+    // Close menu when pressing Escape
+    document.addEventListener("keydown", function(event) {
 
-    const monthlyContext = monthlyCanvas.getContext("2d");
+        if (event.key === "Escape") {
+            hamburgerBtn.classList.remove("active");
+            dropdownMenu.classList.remove("active");
 
-    new Chart(monthlyContext, {
+            hamburgerBtn.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+        }
+    });
+</script>
+<script>
+    const incomeExpenseCtx = document.getElementById(
+        "incomeExpenseChart"
+    );
+
+    new Chart(incomeExpenseCtx, {
         type: "bar",
 
         data: {
-            labels: monthlyLabels,
+            labels: {{ monthly_labels | tojson }},
 
-            datasets: [{
-                label: "Monthly Expenses (₹)",
-                data: monthlyValues,
-                borderWidth: 1,
-                borderRadius: 8
-            }]
+            datasets: [
+                {
+                    label: "Income",
+                    data: {{ monthly_income_values | tojson }},
+                    backgroundColor: "#7457ff",
+                    borderRadius: 8,
+                    borderSkipped: false,
+                    barPercentage: 0.75,
+                    categoryPercentage: 0.7
+                },
+                {
+                    label: "Expense",
+                    data: {{ monthly_expense_values | tojson }},
+                    backgroundColor: "#64748b",
+                    borderRadius: 8,
+                    borderSkipped: false,
+                    barPercentage: 0.75,
+                    categoryPercentage: 0.7
+                }
+            ]
         },
 
         options: {
             responsive: true,
             maintainAspectRatio: false,
-
-            scales: {
-                y: {
-                    beginAtZero: true,
-
-                    ticks: {
-                        callback: function(value) {
-                            return "₹" + value;
-                        }
-                    }
-                }
-            },
 
             plugins: {
                 legend: {
@@ -596,18 +1030,101 @@ if (monthlyCanvas) {
                 },
 
                 tooltip: {
+                    backgroundColor: "#1b2130",
+                    titleColor: "#f8fafc",
+                    bodyColor: "#cbd5e1",
+                    borderColor: "#30384d",
+                    borderWidth: 1,
+                    padding: 12,
+
                     callbacks: {
                         label: function(context) {
-                            return "₹" + context.raw.toFixed(2);
+                            return (
+                                context.dataset.label +
+                                ": ₹" +
+                                context.parsed.y.toLocaleString("en-IN")
+                            );
+                        }
+                    }
+                }
+            },
+
+            scales: {
+                x: {
+                    grid: {
+                        display: false
+                    },
+
+                    border: {
+                        display: false
+                    },
+
+                    ticks: {
+                        color: "#8f98ad",
+                        font: {
+                            size: 13,
+                            weight: "500"
+                        }
+                    }
+                },
+
+                y: {
+                    beginAtZero: true,
+
+                    grid: {
+                        color: "rgba(148, 163, 184, 0.08)"
+                    },
+
+                    border: {
+                        display: false
+                    },
+
+                    ticks: {
+                        color: "#6f788c",
+
+                        callback: function(value) {
+                            return "₹" + value.toLocaleString("en-IN");
                         }
                     }
                 }
             }
         }
     });
-}
 </script>
 
-</body>
 
+<script>
+    const viewTransactionsMenuBtn = document.getElementById(
+        "viewTransactionsMenuBtn"
+    );
+
+    const transactionHistory = document.getElementById(
+        "transactionHistory"
+    );
+
+    if (viewTransactionsMenuBtn && transactionHistory) {
+
+        viewTransactionsMenuBtn.addEventListener("click", function () {
+
+            transactionHistory.classList.toggle("show");
+
+            if (transactionHistory.classList.contains("show")) {
+
+                transactionHistory.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+
+                viewTransactionsMenuBtn.innerHTML =
+                    "📋 Hide Transactions";
+
+            } else {
+
+                viewTransactionsMenuBtn.innerHTML =
+                    "📋 View Transactions";
+            }
+        });
+    }
+</script>
+</body>
 </html>

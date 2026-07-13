@@ -37,9 +37,7 @@ class TransactionDB(Base):
         String,
         nullable=False
     )
-    date = Column(
-    Date,
-    nullable=False,
+    date = Column(    Date,    nullable=True,
     default=date.today
     )
 

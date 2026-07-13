@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Preview CSV | Finance Tracker</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+</head>
+
+<body>
+
+    <div class="preview-page">
+
+        <div class="preview-card">
+
+            <h1>CSV Preview</h1>
+
+            <p class="preview-description">
+                Previewing the first 5 rows from:
+                <strong>{{ filename }}</strong>
+            </p>
+
+            <div class="preview-table-wrapper">
+
+                <table class="preview-table">
+
+                    <thead>
+                        <tr>
+                            <th>Amount</th>
+                            <th>Category</th>
+                            <th>Transaction Type</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {% for row in preview_rows %}
+
+                            <tr>
+                                <td>{{ row["amount"] }}</td>
+                                <td>{{ row["category"] }}</td>
+                                <td>{{ row["transaction_type"] }}</td>
+                                <td>{{ row["date"] }}</td>
+                            </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            <div class="preview-actions">
+
+                <a
+                    href="{{ url_for('file_operations.import_transactions') }}"
+                    class="cancel-button"
+                >
+                    Cancel
+                </a>
+
+                <form
+    method="POST"
+    action="{{ url_for('file_operations.confirm_import') }}"
+>
+    <button
+        type="submit"
+        class="confirm-button"
+    >
+        Confirm Import
+    </button>
+</form>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

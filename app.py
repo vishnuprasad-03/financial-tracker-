@@ -9,7 +9,7 @@ from config import Config
 from blueprints.transactions import transactions_bp
 from blueprints.api import api_bp
 from blueprints.auth import auth_bp
-
+from blueprints.file_operations import file_operations_bp
 from src.database import SessionLocal
 from src.db_models import UserDB
 
@@ -50,6 +50,7 @@ def create_app():
     app.register_blueprint(auth_bp)
     app.register_blueprint(transactions_bp)
     app.register_blueprint(api_bp)
+    app.register_blueprint(file_operations_bp)
 
     return app
 

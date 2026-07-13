@@ -6,6 +6,7 @@ from flask import (
     Blueprint,
     render_template,
     redirect,
+    session,
     url_for,
     flash,
     request
@@ -96,41 +97,65 @@ def transactions():
     .all()
     )
 
-# Show only the top 6 categories
-    top_categories = category_spending[:6]
+    # ==========================================
+    # TOP 5 EXPENSE CATEGORIES
+    # ==========================================
 
-    # Combine remaining categories into "Other"
-    other_total = sum(
-    amount for category, amount in category_spending[6:]
+    category_spending = (
+        session.query(
+            TransactionDB.category,
+            func.sum(TransactionDB.amount).label("total")
+        )
+        .filter(
+            TransactionDB.transaction_type == "expense"
+        )
+        .group_by(
+            TransactionDB.category
+        )
+        .order_by(
+            func.sum(TransactionDB.amount).desc()
+        )
+        .limit(5)
+        .all()
     )
 
     category_labels = [
-    category for category, amount in top_categories
-    ]   
-
-    category_values = [
-    amount for category, amount in top_categories
+        category
+        for category, amount in category_spending
     ]
 
-    if other_total > 0:
-        category_labels.append("Other")
-        category_values.append(other_total)
+    category_values = [
+        float(amount)
+        for category, amount in category_spending
+    ]
 
-            # Monthly expense trend for the last 6 months
+    # Monthly income vs expense for the last 6 months
     today = date.today()
 
     monthly_labels = []
-    monthly_values = []
+    monthly_income_values = []
+    monthly_expense_values = []
 
     for months_ago in range(5, -1, -1):
-
         target_month = today - relativedelta(months=months_ago)
-
         month_start = target_month.replace(day=1)
-
         next_month = month_start + relativedelta(months=1)
 
-        monthly_total = (
+        # Calculate total income for this month
+        monthly_income = (
+            session.query(
+                func.sum(TransactionDB.amount)
+            )
+            .filter(
+                TransactionDB.transaction_type == "income",
+                TransactionDB.date >= month_start,
+                TransactionDB.date < next_month
+            )
+            .scalar()
+        ) or 0
+
+        # Calculate total expense for this month
+        monthly_expense = (
             session.query(
                 func.sum(TransactionDB.amount)
             )
@@ -142,31 +167,39 @@ def transactions():
             .scalar()
         ) or 0
 
+        # Add month label
         monthly_labels.append(
             target_month.strftime("%b %Y")
         )
 
-        monthly_values.append(
-            float(monthly_total)
+        # Add income value
+        monthly_income_values.append(
+            float(monthly_income)
         )
-        usd_rate = get_usd_rate()
-        total_spend_usd = total_expense * usd_rate
+
+        # Add expense value
+        monthly_expense_values.append(
+            float(monthly_expense)
+        )
+
+    # Live exchange rate
+    usd_rate = get_usd_rate()
+    total_spend_usd = total_expense * usd_rate
 
     session.close()
 
     return render_template(
-    
         "transactions.html",
         form=form,
         category_labels=category_labels,
         category_values=category_values,
         monthly_labels=monthly_labels,
-        monthly_values=monthly_values,
+        monthly_income_values=monthly_income_values,
+        monthly_expense_values=monthly_expense_values,
         transactions=all_transactions,
         total_income=total_income,
         total_expense=total_expense,
         balance=balance,
         usd_rate=usd_rate,
         total_spend_usd=total_spend_usd
-
-)
+    )
