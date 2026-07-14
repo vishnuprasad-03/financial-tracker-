@@ -273,84 +273,97 @@ background:#dc2626;
 
     <div class="header-actions">
 
-    
+    <div class="exchange-info">
+        <span class="exchange-label">
+            Live Exchange
+        </span>
 
-        <div class="menu-wrapper">
-
-    <!-- Hamburger Button -->
-    <button
-        type="button"
-        class="hamburger-btn"
-        id="hamburgerBtn"
-        aria-label="Open navigation menu"
-        aria-expanded="false"
-    >
-        <span></span>
-        <span></span>
-        <span></span>
-    </button>
+        <span class="exchange-rate">
+            ₹1 = ${{ "%.4f"|format(usd_rate) }}
+        </span>
+    </div>
 
 
-    <!-- Dropdown Menu -->
-    <div class="dropdown-menu" id="dropdownMenu">
+    <div class="menu-wrapper">
 
-        
-
-        <a
-            href="#add-transaction"
-            class="menu-item"
-        >
-            <span class="menu-icon">＋</span>
-            Add Transaction
-        </a>
+        <!-- Hamburger Button -->
         <button
+            type="button"
+            class="hamburger-btn"
+            id="hamburgerBtn"
+            aria-label="Open navigation menu"
+            aria-expanded="false"
+        >
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+
+        <!-- Dropdown Menu -->
+        <div class="dropdown-menu" id="dropdownMenu">
+
+            <button
+    type="button"
+    class="menu-item"
+    id="addTransactionMenuBtn"
+>
+    <span class="menu-icon">＋</span>
+    Add Transaction
+</button>
+
+            <button
     type="button"
     class="menu-item"
     id="viewTransactionsMenuBtn"
 >
-    📋 View Transactions
+    <span class="menu-icon">📋</span>
+    View Transactions
 </button>
 
-        <a
-            href="{{ url_for('file_operations.import_transactions') }}"
-            class="menu-item"
-        >
-            <span class="menu-icon">📤</span>
-            Import CSV
-        </a>
+            <button
+                type="button"
+                class="menu-item"
+                id="importCsvMenuBtn"
+            >
+                <span class="menu-icon">📤</span>
+                Import CSV
+            </button>
 
-        <a
-            href="{{ url_for('file_operations.export_transactions') }}"
-            class="menu-item"
-        >
-            <span class="menu-icon">📥</span>
-            Export CSV
-        </a>
+            <button
+                type="button"
+                class="menu-item"
+                id="exportCsvMenuBtn"
+            >
+                <span class="menu-icon">📥</span>
+                Export CSV
+            </button>
 
-        <a
-            href="{{ url_for('file_operations.export_pdf') }}"
-            class="menu-item"
-        >
-            <span class="menu-icon">📄</span>
-            PDF Report
-        </a>
+            <button
+                type="button"
+                class="menu-item"
+                id="exportPdfMenuBtn"
+            >
+                <span class="menu-icon">📄</span>
+                PDF Report
+            </button>
 
-        <div class="menu-divider"></div>
+            <div class="menu-divider"></div>
 
-        <a
-            href="{{ url_for('auth.logout') }}"
-            class="menu-item logout-menu-item"
-        >
-            <span class="menu-icon">↪</span>
-            Logout
-        </a>
+            <button
+                type="button"
+                class="menu-item logout-menu-item"
+                id="logoutMenuBtn"
+            >
+                <span class="menu-icon">↪</span>
+                Logout
+            </button>
+
+        </div>
 
     </div>
 
 </div>
-
-    </div>
-
 </header>
 
 
@@ -441,15 +454,7 @@ background:#dc2626;
 </section>
 
 </div>
-<div class="rate-badge">
 
-🌍 Live Exchange Rate
-
-1 INR =
-
-${{ "%.4f"|format(usd_rate) }}
-
-</div>
 <section class="dashboard-charts-grid">
 
     <!-- Income vs Expense -->
@@ -571,7 +576,11 @@ ${{ "%.4f"|format(usd_rate) }}
 </section>
 
 
-<div class="form-card">
+<div
+    class="form-card"
+    id="addTransactionSection"
+    style="display: none;"
+>
 
 <h2>Add Transaction</h2>
 {% with messages = get_flashed_messages(with_categories=true) %}
@@ -665,10 +674,85 @@ ${{ "%.4f"|format(usd_rate) }}
     </p>
 
 </form>
+</div>
 
-<div id="history" style="display:none;">
+<div
+    id="history"
+    style="display: {% if category_filter or start_date_filter or end_date_filter or request.args.get('page') %}block{% else %}none{% endif %};"
+>
 
 <h2>Transaction History</h2>
+<form
+    method="GET"
+    action="{{ url_for('transactions.transactions') }}"
+    class="transaction-filter-form"
+>
+
+    <!-- Category Filter -->
+    <div class="filter-group">
+        <label for="categoryFilter">
+            Category
+        </label>
+
+        <input
+        type="text"
+        name="category"
+        id="categorySearch"
+        placeholder="e.g. Food"
+        value="{{ category_filter }}"
+        autocomplete="off"
+        >
+    </div>
+
+
+    <!-- Start Date Filter -->
+    <div class="filter-group">
+        <label for="startDateFilter">
+            From Date
+        </label>
+
+        <input
+            type="date"
+            id="startDateFilter"
+            name="start_date"
+            value="{{ start_date_filter }}"
+        >
+    </div>
+
+
+    <!-- End Date Filter -->
+    <div class="filter-group">
+        <label for="endDateFilter">
+            To Date
+        </label>
+
+        <input
+            type="date"
+            id="endDateFilter"
+            name="end_date"
+            value="{{ end_date_filter }}"
+        >
+    </div>
+
+
+    <!-- Apply Button -->
+    <button
+        type="submit"
+        class="apply-filter-btn"
+    >
+        Apply Filters
+    </button>
+
+
+    <!-- Clear Button -->
+    <a
+        href="{{ url_for('transactions.transactions') }}"
+        class="clear-filter-btn"
+    >
+        Clear
+    </a>
+
+</form>
 
 <table>
 
@@ -686,7 +770,7 @@ ${{ "%.4f"|format(usd_rate) }}
 
 </tr>
 
-{% for transaction in transactions %}
+{% for transaction in paginated_transactions %}
 
 <tr>
 
@@ -717,6 +801,60 @@ ${{ "%.4f"|format(usd_rate) }}
 {% endfor %}
 
 </table>
+{% if total_pages > 1 %}
+
+<div class="pagination">
+
+    <!-- Previous Page -->
+    {% if page > 1 %}
+        <a
+            href="{{ url_for(
+        'transactions.transactions',
+        category=category_filter,
+        start_date=start_date_filter,
+        end_date=end_date_filter,
+        page=page - 1
+        ) }}#history"
+            class="pagination-btn"
+        >
+            ← Previous
+        </a>
+    {% else %}
+        <span class="pagination-btn disabled">
+            ← Previous
+        </span>
+    {% endif %}
+
+
+    <!-- Current Page Information -->
+    <span class="pagination-info">
+        Page {{ page }} of {{ total_pages }}
+    </span>
+
+
+    <!-- Next Page -->
+    {% if page < total_pages %}
+        <a
+    href="{{ url_for(
+        'transactions.transactions',
+        category=category_filter,
+        start_date=start_date_filter,
+        end_date=end_date_filter,
+        page=page + 1
+        ) }}#history"
+     class="pagination-btn"
+        >
+        Next →
+</a>
+    {% else %}
+        <span class="pagination-btn disabled">
+            Next →
+        </span>
+    {% endif %}
+
+</div>
+
+{% endif %}
 
 </div>
 
@@ -940,52 +1078,45 @@ categoryBreakdown.classList.remove("has-active");
     const hamburgerBtn = document.getElementById("hamburgerBtn");
     const dropdownMenu = document.getElementById("dropdownMenu");
 
-    hamburgerBtn.addEventListener("click", function(event) {
-        event.stopPropagation();
+    if (hamburgerBtn && dropdownMenu) {
 
-        hamburgerBtn.classList.toggle("active");
-        dropdownMenu.classList.toggle("active");
+        hamburgerBtn.addEventListener("click", function(event) {
 
-        const isOpen = dropdownMenu.classList.contains("active");
+            event.stopPropagation();
 
-        hamburgerBtn.setAttribute(
-            "aria-expanded",
-            isOpen
-        );
-    });
+            // Open/close dropdown
+            dropdownMenu.classList.toggle("active");
 
+            // Animate hamburger into X
+            hamburgerBtn.classList.toggle("active");
 
-    // Close menu when clicking outside
-    document.addEventListener("click", function(event) {
-
-        if (
-            !hamburgerBtn.contains(event.target) &&
-            !dropdownMenu.contains(event.target)
-        ) {
-            hamburgerBtn.classList.remove("active");
-            dropdownMenu.classList.remove("active");
+            // Update accessibility state
+            const isOpen = dropdownMenu.classList.contains("active");
 
             hamburgerBtn.setAttribute(
                 "aria-expanded",
-                "false"
+                isOpen
             );
-        }
-    });
+        });
 
 
-    // Close menu when pressing Escape
-    document.addEventListener("keydown", function(event) {
+        // Close when clicking outside
+        document.addEventListener("click", function(event) {
 
-        if (event.key === "Escape") {
-            hamburgerBtn.classList.remove("active");
-            dropdownMenu.classList.remove("active");
+            if (
+                !dropdownMenu.contains(event.target) &&
+                !hamburgerBtn.contains(event.target)
+            ) {
+                dropdownMenu.classList.remove("active");
+                hamburgerBtn.classList.remove("active");
 
-            hamburgerBtn.setAttribute(
-                "aria-expanded",
-                "false"
-            );
-        }
-    });
+                hamburgerBtn.setAttribute(
+                    "aria-expanded",
+                    "false"
+                );
+            }
+        });
+    }
 </script>
 <script>
     const incomeExpenseCtx = document.getElementById(
@@ -1016,7 +1147,7 @@ categoryBreakdown.classList.remove("has-active");
                     borderSkipped: false,
                     barPercentage: 0.75,
                     categoryPercentage: 0.7
-                }
+                },
             ]
         },
 
@@ -1091,40 +1222,132 @@ categoryBreakdown.classList.remove("has-active");
         }
     });
 </script>
-
-
 <script>
-    const viewTransactionsMenuBtn = document.getElementById(
-        "viewTransactionsMenuBtn"
+    // ==========================================
+    // ADD TRANSACTION - SHOW / HIDE
+    // ==========================================
+
+    const addTransactionMenuBtn = document.getElementById(
+        "addTransactionMenuBtn"
     );
 
-    const transactionHistory = document.getElementById(
-        "transactionHistory"
+    const addTransactionSection = document.getElementById(
+        "addTransactionSection"
     );
 
-    if (viewTransactionsMenuBtn && transactionHistory) {
+    if (addTransactionMenuBtn && addTransactionSection) {
 
-        viewTransactionsMenuBtn.addEventListener("click", function () {
+        addTransactionMenuBtn.addEventListener("click", function() {
 
-            transactionHistory.classList.toggle("show");
+            const isHidden =
+                addTransactionSection.style.display === "none";
 
-            if (transactionHistory.classList.contains("show")) {
+            if (isHidden) {
 
-                transactionHistory.scrollIntoView({
+                // Show the Add Transaction form
+                addTransactionSection.style.display = "block";
+
+                // Change menu text
+                addTransactionMenuBtn.innerHTML = `
+                    <span class="menu-icon">−</span>
+                    Hide Add Transaction
+                `;
+
+                // Smoothly scroll to form
+                setTimeout(function() {
+                    addTransactionSection.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start"
+                    });
+                }, 100);
+
+            } else {
+
+                // Hide the Add Transaction form
+                addTransactionSection.style.display = "none";
+
+                // Restore menu text
+                addTransactionMenuBtn.innerHTML = `
+                    <span class="menu-icon">＋</span>
+                    Add Transaction
+                `;
+            }
+
+            // Close hamburger dropdown
+            dropdownMenu.classList.remove("active");
+            hamburgerBtn.classList.remove("active");
+
+            hamburgerBtn.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+        });
+    }
+
+    // ==========================================
+// VIEW TRANSACTIONS - SHOW / HIDE
+// ==========================================
+
+const viewTransactionsMenuBtn = document.getElementById(
+    "viewTransactionsMenuBtn"
+);
+
+const historySection = document.getElementById(
+    "history"
+);
+
+if (viewTransactionsMenuBtn && historySection) {
+
+    viewTransactionsMenuBtn.addEventListener("click", function() {
+
+        const isHidden =
+            window.getComputedStyle(historySection).display === "none";
+
+        if (isHidden) {
+
+            // Show transaction history
+            historySection.style.display = "block";
+
+            // Change button text
+            viewTransactionsMenuBtn.innerHTML = `
+                <span class="menu-icon">📋</span>
+                Hide Transactions
+            `;
+
+            // Scroll to transaction history
+            setTimeout(function() {
+
+                historySection.scrollIntoView({
                     behavior: "smooth",
                     block: "start"
                 });
 
-                viewTransactionsMenuBtn.innerHTML =
-                    "📋 Hide Transactions";
+            }, 100);
 
-            } else {
+        } else {
 
-                viewTransactionsMenuBtn.innerHTML =
-                    "📋 View Transactions";
-            }
-        });
-    }
+            // Hide transaction history
+            historySection.style.display = "none";
+
+            // Restore button text
+            viewTransactionsMenuBtn.innerHTML = `
+                <span class="menu-icon">📋</span>
+                View Transactions
+            `;
+        }
+
+        // Close hamburger dropdown
+        dropdownMenu.classList.remove("active");
+        hamburgerBtn.classList.remove("active");
+
+        hamburgerBtn.setAttribute(
+            "aria-expanded",
+            "false"
+        );
+    });
+}
+
 </script>
-</body>
+
+
 </html>
