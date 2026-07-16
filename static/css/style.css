@@ -1485,3 +1485,1040 @@ tr:hover{
         width: 100%;
     }
 }
+
+/* ==========================================
+   IMPORT TRANSACTIONS PAGE
+========================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+
+    background: #090d16;
+    color: #f5f7ff;
+
+    font-family: inherit;
+}
+
+
+/* Main Page */
+
+.import-page {
+    min-height: 100vh;
+    padding: 60px 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+
+    background:
+        radial-gradient(
+            circle at top,
+            rgba(116, 87, 255, 0.08),
+            transparent 35%
+        ),
+        #090d16;
+}
+
+
+/* Main Card */
+
+.import-card {
+    width: 100%;
+    max-width: 680px;
+    padding: 36px;
+
+    background: #111622;
+    border: 1px solid #293044;
+    border-radius: 20px;
+
+    box-shadow:
+        0 24px 70px rgba(0, 0, 0, 0.35);
+}
+
+
+/* ==========================================
+   HEADER
+========================================== */
+
+.import-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+
+    margin-bottom: 30px;
+}
+
+
+.import-icon {
+    width: 46px;
+    height: 46px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: linear-gradient(
+        135deg,
+        #7457ff,
+        #4f28e8
+    );
+
+    border-radius: 12px;
+
+    color: #ffffff;
+
+    font-size: 25px;
+    font-weight: 600;
+
+    box-shadow:
+        0 8px 24px rgba(116, 87, 255, 0.25);
+}
+
+
+.import-header h1 {
+    margin: 0 0 7px;
+
+    color: #f5f7ff;
+
+    font-size: 30px;
+    font-weight: 700;
+
+    letter-spacing: -0.5px;
+}
+
+
+.import-header p {
+    margin: 0;
+
+    max-width: 520px;
+
+    color: #8993a8;
+
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+
+/* ==========================================
+   FLASH MESSAGES
+========================================== */
+
+.flash-messages {
+    margin-bottom: 20px;
+}
+
+
+.alert {
+    padding: 12px 14px;
+
+    border-radius: 10px;
+
+    font-size: 13px;
+}
+
+
+.alert.success {
+    background: rgba(34, 197, 94, 0.1);
+    border: 1px solid rgba(34, 197, 94, 0.25);
+
+    color: #4ade80;
+}
+
+
+.alert.error,
+.alert.danger {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.25);
+
+    color: #fb7185;
+}
+
+
+/* ==========================================
+   UPLOAD FORM
+========================================== */
+
+.import-form {
+    margin-bottom: 26px;
+}
+
+
+.upload-label {
+    display: block;
+
+    margin-bottom: 9px;
+
+    color: #cbd5e1;
+
+    font-size: 13px;
+    font-weight: 500;
+}
+
+
+/* Upload Box */
+
+.file-upload-box {
+    min-height: 90px;
+    padding: 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 18px;
+
+    background: #0d111b;
+
+    border: 1px dashed #3a4359;
+    border-radius: 14px;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease;
+}
+
+
+.file-upload-box:hover {
+    border-color: #7457ff;
+
+    background: #101522;
+}
+
+
+/* File Information */
+
+.upload-info {
+    display: flex;
+    align-items: center;
+
+    gap: 13px;
+}
+
+
+.file-icon {
+    width: 42px;
+    height: 42px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #171d2b;
+    border: 1px solid #293248;
+    border-radius: 10px;
+
+    font-size: 20px;
+}
+
+
+.upload-text {
+    display: flex;
+    flex-direction: column;
+
+    gap: 4px;
+}
+
+
+.upload-text strong {
+    color: #e8ecf5;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+.upload-text span {
+    color: #6f7a90;
+
+    font-size: 11px;
+}
+
+
+/* ==========================================
+   FILE INPUT
+========================================== */
+
+.file-upload-box input[type="file"] {
+    max-width: 230px;
+
+    color: #8993a8;
+
+    font-family: inherit;
+    font-size: 11px;
+}
+
+
+.file-upload-box input[type="file"]::file-selector-button {
+    margin-right: 8px;
+    padding: 9px 12px;
+
+    background: #191f2e;
+
+    border: 1px solid #343d54;
+    border-radius: 8px;
+
+    color: #dce2ee;
+
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease;
+}
+
+
+.file-upload-box input[type="file"]::file-selector-button:hover {
+    background: #22293a;
+
+    border-color: #7457ff;
+}
+
+
+/* ==========================================
+   PREVIEW BUTTON
+========================================== */
+
+.import-button {
+    width: 100%;
+    height: 46px;
+
+    margin-top: 16px;
+
+    border: none;
+    border-radius: 11px;
+
+    background: linear-gradient(
+        135deg,
+        #7457ff,
+        #4f28e8
+    );
+
+    color: #ffffff;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 7px 20px rgba(116, 87, 255, 0.18);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.import-button:hover {
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 10px 28px rgba(116, 87, 255, 0.28);
+}
+
+
+/* ==========================================
+   CSV FORMAT
+========================================== */
+
+.csv-format {
+    margin-bottom: 24px;
+    padding: 17px;
+
+    background: #0d111b;
+
+    border: 1px solid #252d40;
+    border-radius: 12px;
+}
+
+
+.format-header {
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    margin-bottom: 12px;
+}
+
+
+.format-icon {
+    color: #8b73ff;
+
+    font-size: 15px;
+}
+
+
+.csv-format h3 {
+    margin: 0;
+
+    color: #e8ecf5;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+.csv-format code {
+    display: block;
+
+    padding: 10px 12px;
+
+    overflow-x: auto;
+
+    background: #151a27;
+    border-radius: 8px;
+
+    color: #9d8cff;
+
+    font-size: 12px;
+}
+
+
+.csv-format p {
+    margin: 11px 0 0;
+
+    color: #737e94;
+
+    font-size: 11px;
+}
+
+
+.csv-format p span {
+    color: #aab3c5;
+}
+
+
+/* ==========================================
+   BACK LINK
+========================================== */
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 7px;
+
+    color: #8b73ff;
+
+    text-decoration: none;
+
+    font-size: 13px;
+    font-weight: 500;
+
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.back-link:hover {
+    color: #b0a1ff;
+
+    transform: translateX(-2px);
+}
+
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 650px) {
+
+    .import-page {
+        padding: 30px 14px;
+    }
+
+
+    .import-card {
+        padding: 24px 18px;
+
+        border-radius: 16px;
+    }
+
+
+    .import-header h1 {
+        font-size: 25px;
+    }
+
+
+    .file-upload-box {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+
+    .file-upload-box input[type="file"] {
+        max-width: 100%;
+    }
+}
+/* ==========================================
+   CSV PREVIEW PAGE
+========================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+
+body {
+    margin: 0;
+
+    background: #090d16;
+    color: #f5f7ff;
+}
+
+
+/* Main Page */
+
+.preview-page {
+    min-height: 100vh;
+    padding: 60px 24px;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+
+    background:
+        radial-gradient(
+            circle at top,
+            rgba(116, 87, 255, 0.08),
+            transparent 35%
+        ),
+        #090d16;
+}
+
+
+/* Main Card */
+
+.preview-card {
+    width: 100%;
+    max-width: 1050px;
+    padding: 36px;
+
+    background: #111622;
+
+    border: 1px solid #293044;
+    border-radius: 20px;
+
+    box-shadow:
+        0 24px 70px rgba(0, 0, 0, 0.35);
+}
+
+
+/* ==========================================
+   HEADING
+========================================== */
+
+.preview-card h1 {
+    margin: 0 0 8px;
+
+    color: #f5f7ff;
+
+    font-size: 30px;
+    font-weight: 700;
+
+    letter-spacing: -0.5px;
+}
+
+
+.preview-description {
+    margin: 0 0 28px;
+
+    color: #8993a8;
+
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+
+.preview-description strong {
+    color: #b9adff;
+    font-weight: 500;
+}
+
+
+/* ==========================================
+   TABLE WRAPPER
+========================================== */
+
+.preview-table-wrapper {
+    width: 100%;
+
+    overflow-x: auto;
+
+    background: #0d111b;
+
+    border: 1px solid #293044;
+    border-radius: 14px;
+}
+
+
+/* ==========================================
+   TABLE
+========================================== */
+
+.preview-table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    background: transparent;
+}
+
+
+/* Table Header */
+
+.preview-table thead {
+    background: #171d2b;
+}
+
+
+.preview-table th {
+    padding: 17px 20px;
+
+    color: #9d8cff;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    text-align: left;
+
+    border-bottom: 1px solid #293044;
+}
+
+
+/* Table Body */
+
+.preview-table td {
+    padding: 17px 20px;
+
+    color: #cbd5e1;
+
+    font-size: 13px;
+    font-weight: 400;
+
+    text-align: left;
+
+    border-bottom: 1px solid #222a3b;
+}
+
+
+.preview-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+.preview-table tbody tr {
+    transition: background 0.2s ease;
+}
+
+
+.preview-table tbody tr:hover {
+    background: #161c2a;
+}
+
+
+/* ==========================================
+   ACTION BUTTONS
+========================================== */
+
+.preview-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 12px;
+
+    margin-top: 22px;
+}
+
+
+/* Remove default form spacing */
+
+.preview-actions form {
+    margin: 0;
+}
+
+
+/* Cancel Button */
+
+.cancel-button {
+    height: 44px;
+    padding: 0 18px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #151a27;
+
+    border: 1px solid #30384d;
+    border-radius: 10px;
+
+    color: #aab3c5;
+
+    text-decoration: none;
+
+    font-size: 13px;
+    font-weight: 500;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease;
+}
+
+
+.cancel-button:hover {
+    background: #1b2130;
+
+    border-color: #7457ff;
+
+    color: #ffffff;
+}
+
+
+/* Confirm Button */
+
+.confirm-button {
+    height: 44px;
+    padding: 0 20px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: linear-gradient(
+        135deg,
+        #7457ff,
+        #4f28e8
+    );
+
+    color: #ffffff;
+
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 7px 20px rgba(116, 87, 255, 0.2);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.confirm-button:hover {
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 10px 28px rgba(116, 87, 255, 0.3);
+}
+
+
+/* ==========================================
+   MOBILE RESPONSIVE
+========================================== */
+
+@media (max-width: 700px) {
+
+    .preview-page {
+        padding: 30px 14px;
+    }
+
+
+    .preview-card {
+        padding: 22px 16px;
+
+        border-radius: 16px;
+    }
+
+
+    .preview-card h1 {
+        font-size: 26px;
+    }
+
+
+    .preview-table {
+        min-width: 650px;
+    }
+
+
+    .preview-actions {
+        flex-direction: column-reverse;
+        align-items: stretch;
+    }
+
+
+    .cancel-button,
+    .confirm-button {
+        width: 100%;
+    }
+}
+
+/* ==========================================
+   TRANSACTION HISTORY TABLE
+========================================== */
+
+.transaction-table-container {
+    width: 100%;
+    margin-top: 24px;
+
+    overflow-x: auto;
+
+    background: #111622;
+
+    border: 1px solid #293044;
+    border-radius: 16px;
+
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.18);
+}
+
+
+/* Main Table */
+
+.transaction-table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    background: transparent;
+}
+
+
+/* Header */
+
+.transaction-table thead {
+    background: #151b29;
+}
+
+
+.transaction-table th {
+    padding: 15px 20px;
+
+    color: #7f899e;
+
+    font-size: 11px;
+    font-weight: 500;
+
+    text-align: left;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+
+    border-bottom: 1px solid #293044;
+}
+
+
+/* Table Cells */
+
+.transaction-table td {
+    padding: 15px 20px;
+
+    color: #cbd2df;
+
+    font-size: 13px;
+    font-weight: 400;
+
+    text-align: left;
+
+    border-bottom: 1px solid #202738;
+}
+
+
+/* Remove final border */
+
+.transaction-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* Row Hover */
+
+.transaction-table tbody tr {
+    transition: background 0.2s ease;
+}
+
+
+.transaction-table tbody tr:hover {
+    background: #161d2b;
+}
+
+
+/* ==========================================
+   SPECIFIC COLUMNS
+========================================== */
+
+/* ID */
+
+.transaction-id {
+    color: #69758b !important;
+
+    font-size: 12px !important;
+}
+
+
+/* Category */
+
+.transaction-category {
+    color: #e2e6ef !important;
+
+    font-weight: 500 !important;
+}
+
+
+/* Type */
+
+.type-text {
+    color: #8f99ad;
+
+    font-size: 12px;
+}
+
+
+/* Amount */
+
+.transaction-amount {
+    color: #f0f3fa !important;
+
+    font-weight: 500 !important;
+}
+
+
+/* ==========================================
+   STATUS BADGES
+========================================== */
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 5px 10px;
+
+    border-radius: 20px;
+
+    font-size: 11px;
+    font-weight: 500;
+}
+
+
+/* Create dot without emoji */
+
+.status-badge::before {
+    content: "";
+
+    width: 7px;
+    height: 7px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+}
+
+
+/* Income */
+
+.status-income {
+    color: #4ade80;
+
+    background: rgba(34, 197, 94, 0.08);
+
+    border: 1px solid rgba(34, 197, 94, 0.15);
+}
+
+
+.status-income::before {
+    background: #22c55e;
+
+    box-shadow:
+        0 0 7px rgba(34, 197, 94, 0.35);
+}
+
+
+/* Expense */
+
+.status-expense {
+    color: #fb7185;
+
+    background: rgba(239, 68, 68, 0.08);
+
+    border: 1px solid rgba(239, 68, 68, 0.15);
+}
+
+
+.status-expense::before {
+    background: #ef4444;
+
+    box-shadow:
+        0 0 7px rgba(239, 68, 68, 0.35);
+}
+
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 768px) {
+
+    .transaction-table {
+        min-width: 650px;
+    }
+
+
+    .transaction-table th,
+    .transaction-table td {
+        padding: 13px 15px;
+    }
+}
+
+.flash{
+
+    padding:12px;
+
+    margin-bottom:18px;
+
+    border-radius:10px;
+
+    font-size:15px;
+
+    font-weight:bold;
+
+}
+
+.flash.success{
+
+    background:#d4edda;
+
+    color:#155724;
+
+    border:1px solid #c3e6cb;
+
+}
+
+.flash.danger{
+
+    background:#f8d7da;
+
+    color:#721c24;
+
+    border:1px solid #f5c6cb;
+
+}

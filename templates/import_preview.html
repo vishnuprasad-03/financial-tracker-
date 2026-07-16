@@ -30,6 +30,7 @@
                 <strong>{{ filename }}</strong>
             </p>
 
+
             <div class="preview-table-wrapper">
 
                 <table class="preview-table">
@@ -62,6 +63,7 @@
 
             </div>
 
+
             <div class="preview-actions">
 
                 <a
@@ -71,17 +73,19 @@
                     Cancel
                 </a>
 
+
                 <form
-    method="POST"
-    action="{{ url_for('file_operations.confirm_import') }}"
->
-    <button
-        type="submit"
-        class="confirm-button"
-    >
-        Confirm Import
-    </button>
-</form>
+                    method="POST"
+                    action="{{ url_for('file_operations.confirm_import') }}"
+                >
+                    <button
+                        type="submit"
+                        class="confirm-button"
+                    >
+                        Confirm Import
+                    </button>
+                </form>
+
             </div>
 
         </div>

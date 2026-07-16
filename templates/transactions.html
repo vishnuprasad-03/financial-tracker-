@@ -303,64 +303,71 @@ background:#dc2626;
         <!-- Dropdown Menu -->
         <div class="dropdown-menu" id="dropdownMenu">
 
-            <button
-    type="button"
-    class="menu-item"
-    id="addTransactionMenuBtn"
->
-    <span class="menu-icon">＋</span>
-    Add Transaction
-</button>
+    <!-- Add Transaction -->
+    <button
+        type="button"
+        class="menu-item"
+        id="addTransactionMenuBtn"
+    >
+        <span class="menu-icon">＋</span>
+        Add Transaction
+    </button>
 
-            <button
-    type="button"
-    class="menu-item"
-    id="viewTransactionsMenuBtn"
->
-    <span class="menu-icon">📋</span>
-    View Transactions
-</button>
 
-            <button
-                type="button"
-                class="menu-item"
-                id="importCsvMenuBtn"
-            >
-                <span class="menu-icon">📤</span>
-                Import CSV
-            </button>
+    <!-- View Transactions -->
+    <button
+        type="button"
+        class="menu-item"
+        id="viewTransactionsMenuBtn"
+    >
+        <span class="menu-icon">📋</span>
+        View Transactions
+    </button>
 
-            <button
-                type="button"
-                class="menu-item"
-                id="exportCsvMenuBtn"
-            >
-                <span class="menu-icon">📥</span>
-                Export CSV
-            </button>
 
-            <button
-                type="button"
-                class="menu-item"
-                id="exportPdfMenuBtn"
-            >
-                <span class="menu-icon">📄</span>
-                PDF Report
-            </button>
+    <!-- Import CSV -->
+    <a
+        href="{{ url_for('file_operations.import_transactions') }}"
+        class="menu-item"
+    >
+        <span class="menu-icon">📤</span>
+        Import CSV
+    </a>
 
-            <div class="menu-divider"></div>
 
-            <button
-                type="button"
-                class="menu-item logout-menu-item"
-                id="logoutMenuBtn"
-            >
-                <span class="menu-icon">↪</span>
-                Logout
-            </button>
+    <!-- Export CSV -->
+    <a
+        href="{{ url_for('file_operations.export_transactions') }}"
+        class="menu-item"
+    >
+        <span class="menu-icon">📥</span>
+        Export CSV
+    </a>
 
-        </div>
 
+    <!-- PDF Report -->
+    <a
+        href="{{ url_for('file_operations.export_pdf') }}"
+        class="menu-item"
+    >
+        <span class="menu-icon">📄</span>
+        PDF Report
+    </a>
+
+
+    <div class="menu-divider"></div>
+
+
+    <!-- Logout -->
+    <a
+        href="{{ url_for('auth.logout') }}"
+        class="menu-item logout-menu-item"
+    >
+        <span class="menu-icon">↪</span>
+        Logout
+    </a>
+
+</div>
     </div>
 
 </div>
@@ -754,53 +761,57 @@ background:#dc2626;
 
 </form>
 
-<table>
+<div class="transaction-table-container">
 
-<tr>
+    <table class="transaction-table">
 
-<th>ID</th>
+        <thead>
 
-<th>Category</th>
+            <tr>
+                <th>ID</th>
+                <th>Category</th>
+                <th>Type</th>
+                <th>Amount</th>
+                
+            </tr>
 
-<th>Type</th>
+        </thead>
 
-<th>Amount</th>
+        <tbody>
 
-<th>Status</th>
+            {% for transaction in paginated_transactions %}
 
-</tr>
+                <tr>
 
-{% for transaction in paginated_transactions %}
+                    <td class="transaction-id">
+                        {{ transaction.id }}
+                    </td>
 
-<tr>
+                    <td class="transaction-category">
+                        {{ transaction.category }}
+                    </td>
 
-<td>{{ transaction.id }}</td>
+                    <td>
+                        <span class="type-text">
+                            {{ transaction.transaction_type | title }}
+                        </span>
+                    </td>
 
-<td>{{ transaction.category }}</td>
+                    <td class="transaction-amount">
+                        ₹{{ "%.2f"|format(transaction.amount) }}
+                    </td>
 
-<td>{{ transaction.transaction_type }}</td>
+                   
 
-<td>₹{{ transaction.amount }}</td>
+                </tr>
 
-<td>
+            {% endfor %}
 
-{% if transaction.transaction_type == "income" %}
+        </tbody>
 
-<span class="income">🟢 Income</span>
+    </table>
 
-{% else %}
-
-<span class="expense">🔴 Expense</span>
-
-{% endif %}
-
-</td>
-
-</tr>
-
-{% endfor %}
-
-</table>
+</div>
 {% if total_pages > 1 %}
 
 <div class="pagination">

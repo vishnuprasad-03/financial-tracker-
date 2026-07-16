@@ -23,28 +23,56 @@
 
         <div class="import-card">
 
-            <h1>Import Transactions</h1>
+            <!-- ==============================
+                 HEADER
+            =============================== -->
 
-            <p class="import-description">
-                Upload a CSV file to preview your transactions
-                before importing them into the database.
-            </p>
+            <div class="import-header">
+
+                <div class="import-icon">
+                    ↑
+                </div>
+
+                <div>
+                    <h1>Import Transactions</h1>
+
+                    <p>
+                        Upload a CSV file to preview your transactions
+                        before importing them into the database.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- ==============================
+                 FLASH MESSAGES
+            =============================== -->
 
             {% with messages = get_flashed_messages(with_categories=true) %}
 
                 {% if messages %}
 
-                    {% for category, message in messages %}
+                    <div class="flash-messages">
 
-                        <div class="alert {{ category }}">
-                            {{ message }}
-                        </div>
+                        {% for category, message in messages %}
 
-                    {% endfor %}
+                            <div class="alert {{ category }}">
+                                {{ message }}
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
 
                 {% endif %}
 
             {% endwith %}
+
+
+            <!-- ==============================
+                 UPLOAD FORM
+            =============================== -->
 
             <form
                 method="POST"
@@ -53,43 +81,102 @@
                 class="import-form"
             >
 
-                <label for="file">
+                <label
+                    for="file"
+                    class="upload-label"
+                >
                     Choose CSV File
                 </label>
 
-                <input
-                    type="file"
-                    id="file"
-                    name="file"
-                    accept=".csv"
-                    required
-                >
 
-                <button type="submit" class="import-button">
+                <div class="file-upload-box">
+
+                    <div class="upload-info">
+
+                        <div class="file-icon">
+                            📄
+                        </div>
+
+                        <div class="upload-text">
+
+                            <strong>
+                                Select a CSV file
+                            </strong>
+
+                            <span>
+                                Only .csv files are supported
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <input
+                        type="file"
+                        id="file"
+                        name="file"
+                        accept=".csv"
+                        required
+                    >
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="import-button"
+                >
                     Preview CSV
                 </button>
 
             </form>
 
+
+            <!-- ==============================
+                 CSV FORMAT INFORMATION
+            =============================== -->
+
             <div class="csv-format">
 
-                <h3>Expected CSV Format</h3>
+                <div class="format-header">
+
+                    <span class="format-icon">
+                        ⓘ
+                    </span>
+
+                    <h3>
+                        Expected CSV Format
+                    </h3>
+
+                </div>
+
 
                 <code>
                     amount,category,transaction_type,date
                 </code>
 
+
                 <p>
-                    Example: 500,Food,expense,2026-07-13
+                    Example:
+                    <span>
+                        500,Food,expense,2026-07-13
+                    </span>
                 </p>
 
             </div>
+
+
+            <!-- ==============================
+                 BACK TO DASHBOARD
+            =============================== -->
 
             <a
                 href="{{ url_for('transactions.transactions') }}"
                 class="back-link"
             >
-                ← Back to Dashboard
+                <span>←</span>
+                Back to Dashboard
             </a>
 
         </div>

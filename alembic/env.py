@@ -78,3 +78,7 @@ if context.is_offline_mode():
     run_migrations_offline()
 else:
     run_migrations_online()
+
+EMAIL_ADDRESS=vishnuprasad.p2006@gmail.com
+EMAIL_PASSWORD=mnxmvjgtvxrltyan
+ALERT_EMAIL=yourgmail@gmail.com
