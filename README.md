@@ -294,3 +294,17 @@ A Finance Tracker application built using Python that started as a command-line 
 - Updated the application to use the new database location (data/finance.db).
 - Fixed Docker networking and port configuration issues.
 - Successfully deployed and verified the complete Finance Tracker application inside Docker.
+
+### Day 21 – Capstone Sprint 1: Architecture Review
+
+- Designed the overall Finance Tracker system architecture using draw.io.
+- Documented application components, request flow, database, and external services.
+- Created a system architecture diagram and added it to the project documentation.
+- Reviewed the existing application architecture for scalability and maintainability.
+- Identified technical debt and documented future improvement opportunities.
+- Planned upcoming features including recurring transactions and goal tracking.
+- Created 10 GitHub Issues to organize the sprint backlog.
+- Assigned priorities to sprint tasks based on implementation requirements.
+- Set up a GitHub Projects board to manage the development workflow.
+- Organized sprint tasks into Backlog, To Do, In Progress, Review, and Done stages.
+
