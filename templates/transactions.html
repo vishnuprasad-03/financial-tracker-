@@ -583,104 +583,83 @@ background:#dc2626;
 </section>
 
 
-<div
-    class="form-card"
-    id="addTransactionSection"
-    style="display: none;"
->
+<div class="form-card" id="addTransactionSection" style="display:none;">
 
-<h2>Add Transaction</h2>
-{% with messages = get_flashed_messages(with_categories=true) %}
+    <div class="transaction-header">
 
-{% if messages %}
+        <div class="header-icon">
+            💸
+        </div>
 
-    {% for category, message in messages %}
+        <div>
+            <h2>Add Transaction</h2>
+            <p>Record your income and expenses</p>
+        </div>
 
-        <div class="alert">
+    </div>
 
-            {{ message }}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <form method="POST" novalidate>
+
+        {{ form.hidden_tag() }}
+
+        <div class="form-group">
+
+            {{ form.amount.label }}
+
+            {{ form.amount(class="modern-input", placeholder="Enter Amount") }}
+
+            {% for error in form.amount.errors %}
+                <span class="error">{{ error }}</span>
+            {% endfor %}
 
         </div>
 
-    {% endfor %}
+        <div class="form-group">
 
-{% endif %}
+            {{ form.category.label }}
 
-{% endwith %}
+            {{ form.category(class="modern-input", placeholder="Category") }}
 
-<form method="POST" novalidate>
+            {% for error in form.category.errors %}
+                <span class="error">{{ error }}</span>
+            {% endfor %}
 
-    {{ form.hidden_tag() }}
+        </div>
 
-    <p>
+        <div class="form-group">
 
-    {{ form.amount.label }}
+            {{ form.transaction_type.label }}
 
-    {{ form.amount() }}
+            {{ form.transaction_type(class="modern-input") }}
 
-    {% for error in form.amount.errors %}
+        </div>
 
-        <span class="error">
+        <div class="form-group">
 
-            {{ error }}
+            {{ form.date.label }}
 
-        </span>
+            {{ form.date(class="modern-input") }}
 
-    {% endfor %}
+            {% for error in form.date.errors %}
+                <span class="error">{{ error }}</span>
+            {% endfor %}
 
-    </p>
+        </div>
 
-    <p>
+        {{ form.submit(class="add-btn") }}
 
-    {{ form.category.label }}
+    </form>
 
-    {{ form.category() }}
-
-    {% for error in form.category.errors %}
-
-    <span class="error">
-
-    {{ error }}
-
-    </span>
-
-    {% endfor %}
-
-    </p>
-
-    <p>
-
-        {{ form.transaction_type.label }}
-
-        {{ form.transaction_type() }}
-
-    </p>
-
-    <p>
-
-{{ form.date.label }}
-
-{{ form.date() }}
-
-{% for error in form.date.errors %}
-
-<span class="error">
-
-{{ error }}
-
-</span>
-
-{% endfor %}
-
-</p>
-
-    <p>
-
-        {{ form.submit() }}
-
-    </p>
-
-</form>
 </div>
 
 <div

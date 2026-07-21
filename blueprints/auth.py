@@ -108,6 +108,7 @@ def login():
         .filter_by(username=username)
         .first()
     )
+    print("User found:", user is not None)
 
     if user is None:
 
@@ -116,31 +117,35 @@ def login():
         flash(
             "Invalid username or password.",
             "danger"
-            )
-
-    return render_template(
-    "login.html",
-        username=username
         )
 
-    if not check_password_hash(
-        user.password_hash,
-        password
-    ):
+        return render_template(
+            "login.html",
+            username=username
+        )
+
+    password_ok = check_password_hash(
+    user.password_hash,
+    password
+)
+
+    print("Password correct:", password_ok)
+
+    if not password_ok:
 
         session.close()
 
         flash(
-    "Invalid username or password.",
-    "danger"
-    )
+            "Invalid username or password.",
+            "danger"
+        )
 
-    return render_template(
-    "login.html",
-    username=username
-    )
-    
+        return render_template(
+        "login.html",
+        username=username
+        )
 
+    print("Logging user in...")
     login_user(
         user,
         remember=True
@@ -152,7 +157,7 @@ def login():
         f"Welcome back, {user.username}!",
         "success"
     )
-
+    print("Redirecting to transactions...")
     return redirect(
         url_for("transactions.transactions")
     )

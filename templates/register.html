@@ -4,220 +4,223 @@
 
 <head>
 
-    <link rel="stylesheet"
-      href="{{ url_for('static', filename='css/style.css') }}">
     <meta charset="UTF-8">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Finance Tracker | Register</title>
 
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
     <style>
 
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-            font-family:Arial, Helvetica, sans-serif;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
         }
 
-        body{
+        body {
 
-            height:100vh;
+            height: 100vh;
 
-            display:flex;
+            display: flex;
 
-            justify-content:center;
+            justify-content: center;
 
-            align-items:center;
+            align-items: center;
 
-            background:linear-gradient(135deg,#667eea,#764ba2,#6dd5ed);
-
-        }
-
-        .register-container{
-
-            width:420px;
-
-            background:white;
-
-            padding:40px;
-
-            border-radius:20px;
-
-            box-shadow:0 18px 40px rgba(0,0,0,.25);
-
-            text-align:center;
+            background: linear-gradient(
+                135deg,
+                #667eea,
+                #764ba2,
+                #6dd5ed
+            );
 
         }
 
-        .logo{
+        .register-container {
 
-            font-size:60px;
+            width: 420px;
 
-            margin-bottom:15px;
+            background: white;
 
-        }
+            padding: 40px;
 
-        h1{
+            border-radius: 20px;
 
-            color:#4f46e5;
+            box-shadow: 0 18px 40px rgba(0,0,0,.25);
 
-            margin-bottom:10px;
-
-        }
-
-        p{
-
-            color:#666;
-
-            margin-bottom:30px;
+            text-align: center;
 
         }
 
-        input{
+        .logo {
 
-            width:100%;
+            font-size: 60px;
 
-            padding:15px;
-
-            margin:12px 0;
-
-            border:1px solid #ddd;
-
-            border-radius:12px;
-
-            font-size:16px;
-
-            outline:none;
-
-            transition:.3s;
+            margin-bottom: 15px;
 
         }
 
-        input:focus{
+        h1 {
 
-            border-color:#4f46e5;
+            color: #4f46e5;
 
-            box-shadow:0 0 10px rgba(79,70,229,.35);
-
-        }
-
-        button{
-
-            width:100%;
-
-            padding:15px;
-
-            margin-top:15px;
-
-            border:none;
-
-            border-radius:12px;
-
-            background:#4f46e5;
-
-            color:white;
-
-            font-size:18px;
-
-            cursor:pointer;
-
-            transition:.3s;
+            margin-bottom: 10px;
 
         }
 
-        button:hover{
+        p {
 
-            background:#3730a3;
+            color: #666;
 
-            transform:translateY(-2px);
-
-        }
-
-        .login-link{
-
-            margin-top:25px;
-
-            color:#666;
-
-            font-size:15px;
+            margin-bottom: 30px;
 
         }
 
-        .login-link a{
+        input {
 
-            color:#4f46e5;
+            width: 100%;
 
-            text-decoration:none;
+            padding: 15px;
 
-            font-weight:bold;
+            margin: 12px 0;
+
+            border: 1px solid #ddd;
+
+            border-radius: 12px;
+
+            font-size: 16px;
+
+            outline: none;
+
+            transition: .3s;
+
+        }
+
+        input:focus {
+
+            border-color: #4f46e5;
+
+            box-shadow: 0 0 10px rgba(79,70,229,.35);
 
         }
 
-        .login-link a:hover{
+        button {
 
-            text-decoration:underline;
+            width: 100%;
+
+            padding: 15px;
+
+            margin-top: 15px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            background: #4f46e5;
+
+            color: white;
+
+            font-size: 18px;
+
+            cursor: pointer;
+
+            transition: .3s;
 
         }
 
-        .features{
+        button:hover {
 
-            margin-top:25px;
+            background: #3730a3;
 
-            display:flex;
-
-            justify-content:space-between;
-
-            font-size:13px;
-
-            color:#777;
+            transform: translateY(-2px);
 
         }
-        
-        <style>
 
-...
+        .login-link {
 
-.flash{
+            margin-top: 25px;
 
-    width:100%;
+            color: #666;
 
-    padding:12px;
+            font-size: 15px;
 
-    margin-bottom:18px;
+        }
 
-    border-radius:10px;
+        .login-link a {
 
-    text-align:center;
+            color: #4f46e5;
 
-    font-size:15px;
+            text-decoration: none;
 
-    font-weight:bold;
+            font-weight: bold;
 
-}
+        }
 
-.flash.success{
+        .login-link a:hover {
 
-    background:#d4edda;
+            text-decoration: underline;
 
-    color:#155724;
+        }
 
-    border:1px solid #c3e6cb;
+        .features {
 
-}
+            margin-top: 25px;
 
-.flash.danger{
+            display: flex;
 
-    background:#f8d7da;
+            justify-content: space-between;
 
-    color:#721c24;
+            font-size: 13px;
 
-    border:1px solid #f5c6cb;
+            color: #777;
 
-}
+        }
 
-</style>
+        .flash {
+
+            width: 100%;
+
+            padding: 12px;
+
+            margin-bottom: 18px;
+
+            border-radius: 10px;
+
+            text-align: center;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+        }
+
+        .flash.success {
+
+            background: #d4edda;
+
+            color: #155724;
+
+            border: 1px solid #c3e6cb;
+
+        }
+
+        .flash.danger {
+
+            background: #f8d7da;
+
+            color: #721c24;
+
+            border: 1px solid #f5c6cb;
+
+        }
+
     </style>
 
 </head>

@@ -2,7 +2,7 @@
 Main Flask application.
 """
 
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, url_for
 from flask_login import LoginManager
 
 from config import Config
@@ -48,31 +48,27 @@ def create_app():
     app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 
     app.config.from_object(Config)
-    
+
     limiter.init_app(app)
-        
+
     login_manager.init_app(app)
     login_manager.login_view = "auth.login"
 
-    @app.route("/")
-    def home():
-        return "Finance Tracker is Running 🚀"
-
+    # Register blueprints
     app.register_blueprint(auth_bp)
     app.register_blueprint(transactions_bp)
     app.register_blueprint(api_bp)
     app.register_blueprint(file_operations_bp)
     app.register_blueprint(health_bp)
 
+    # Home route
+    @app.route("/")
+    def home():
+        return redirect(url_for("auth.login"))
+
     @app.errorhandler(429)
     def ratelimit_handler(error):
-
-        return (
-        render_template(
-            "429.html"
-        ),
-        429
-    )
+        return render_template("429.html"), 429
 
     return app
 
@@ -81,7 +77,7 @@ app = create_app()
 
 
 if __name__ == "__main__":
-
+    
     start_scheduler()
 
     app.run(

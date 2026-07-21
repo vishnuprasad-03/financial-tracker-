@@ -216,3 +216,81 @@ A Finance Tracker application built using Python that started as a command-line 
 * Passed Python data from Flask to JavaScript using Jinja2 `tojson`
 * Implemented responsive two-chart dashboard layout
 * Charts automatically update using real database transaction data
+
+
+## Day 16 – Dashboard UI Enhancement & Data Visualization
+
+- Improved the Finance Tracker dashboard UI with a modern dark theme.
+- Redesigned the header and navigation section.
+- Added a hamburger menu for better navigation.
+- Moved the following actions into the hamburger menu:
+  - Add Transaction
+  - View Transactions
+  - Import CSV
+  - Export CSV
+  - Export PDF Report
+  - Logout
+- Added show/hide functionality for the Add Transaction form.
+- Added show/hide functionality for Transaction History.
+- Improved the dashboard card design and overall page layout.
+- Added a doughnut chart to visualize spending by category.
+- Displayed only the top spending categories in the chart.
+- Added category percentages on hover.
+- Added interactive highlighting for chart categories.
+- Integrated the live INR-to-USD exchange rate into the dashboard header.
+
+
+## Day 17 – Search, Filter & Pagination
+
+- Implemented query string parameters for transaction filtering.
+- Added dynamic SQLAlchemy filters.
+- Added category-based transaction filtering.
+- Added start-date and end-date range filtering.
+- Created a filter UI inside the Transaction History section.
+- Implemented pagination with a maximum of 10 transactions per page.
+- Added Previous and Next page navigation.
+- Preserved active filters while navigating between pages.
+- Ensured the Transaction History section remains visible during pagination.
+- Added anchor navigation to prevent returning to the top of the dashboard after changing pages.
+- Added a live category search bar.
+- Implemented automatic URL updates using JavaScript.
+- Added debounce functionality to prevent unnecessary reloads while typing.
+- Improved the filter UI to match the dark-themed dashboard.
+
+### Day 18 – User Authentication & Security
+
+- Implemented a secure user authentication system using Flask-Login.
+- Added user registration with unique username validation.
+-  Implemented secure password hashing using Werkzeug.
+-  Added user login and logout functionality.
+-  Protected dashboard and transaction routes using login authentication.
+-  Implemented session management for authenticated users.
+-  Added automatic redirection to the login page for unauthorized users.
+-  Created a dedicated Users database table using SQLAlchemy.
+-  Added user-friendly error messages for invalid login credentials.
+-  Improved application security by preventing unauthorized access to protected pages.
+
+### Day 19 – Database Integration, Reports & Performance
+-  Migrated transaction storage from JSON files to a SQLite database using SQLAlchemy ORM.
+- Implemented CRUD operations for transaction management.
+- Added monthly budget management with category-wise budget limits.
+- Implemented CSV import functionality for bulk transaction uploads.
+- Added CSV export functionality for transaction data.
+-  Implemented PDF report generation for transaction summaries.
+- Added scheduled database backup functionality.
+- Integrated API health check endpoint for application monitoring.
+- Implemented rate limiting to protect the application from excessive requests.
+- Improved application logging and exception handling for easier debugging.
+
+### Day 20 – Dockerization & Deployment
+- Containerized the Finance Tracker application using Docker.
+- Created a production-ready Dockerfile for the Flask application.
+- Configured Docker Compose for simplified application deployment.
+- Integrated Gunicorn as the production WSGI server.
+- Added a startup script (start.sh) to automate database initialization.
+- Configured automatic database table creation during container startup.
+- Organized project data by moving the SQLite database into a dedicated data/ directory.
+- Configured Docker volumes for persistent database storage.
+- Updated the application to use the new database location (data/finance.db).
+- Fixed Docker networking and port configuration issues.
+- Successfully deployed and verified the complete Finance Tracker application inside Docker.

@@ -1,0 +1,15 @@
+services:
+  finance-tracker:
+    build: .
+    container_name: finance-tracker
+
+    ports:
+      - "5001:5000"
+
+    env_file:
+      - .env
+
+    volumes:
+      - ./data/finance.db:/app/data/finance.db
+
+    restart: unless-stopped
